@@ -3,8 +3,8 @@
     
     const dispatch = createEventDispatcher();
 
-    export let user = "";
-    export let psw = "";
+    let user = "";
+    let psw = "";
 
     //Dispatches values entered in user & psw fields on press on Enter.
     const handleKeyUp = (e) => {

@@ -1,21 +1,34 @@
 <script>
-	import {onMount} from "svelte";
-	
 	import Login from "./Login.svelte";
-	import Welcome from "./Welcome.svelte";
+	import Loading from "./Loading.svelte";
+	import LoginStatus from "./LoginStatus.svelte"
+	import Main from "./Main.svelte"
 
-	let loggedIn = false;
-	let power = false;
-	let firstLoad = true;
-
+	let loggedIn = true;
+	let power = true;
+	let firstLoad = false;
+	let loadingFinished = true;
+	let access = undefined;
+	
 	const handleSubmit = (e) => {
 		if(e.detail.user === "admin" && e.detail.psw === "psw123"){
-			loggedIn = !loggedIn
+			access = "approved";
 		} else {
-			console.log("denied!");
+			access = "denied";
 		}
+		setTimeout(() => {
+			if(access === "approved"){
+				loggedIn = true;
+			}
+			access = undefined;
+		}, 1500);
 	}
 
+	const shutdown = () => {
+		loggedIn = false;
+		loadingFinished = false;
+		power = false;
+	}
 </script>
 
 <style type="text/scss">
@@ -49,15 +62,15 @@
 		border: solid 1px black;
 		background-color: rgb(95, 95, 84);
 	}
-	
-	#screen{
+		#screen{
 		position: relative;
+		// font-size: 1.5em;
 		width: $screen-width;
 		height: $screen-height;
 		left: calc((100% - $screen-width)/2);
 		top: calc($screen-height * 0.05);
-		border-radius: 2em;
-		padding: 1em;
+		border-radius: 2rem;
+		padding: 1rem;
 		box-sizing: border-box;
 		box-shadow: rgba(0, 0, 0, 0.17) -2.5px -23px 25px 0px inset,
 					rgba(0, 0, 0, 0.15) -5px -36px 30px 0px inset,
@@ -68,7 +81,6 @@
 					rgba(0, 0, 0, 0.09) 0px 16px 8px, 
 					rgba(0, 0, 0, 0.09) 0px 32px 16px;
 	}
-	
 	#knob-plate{
 		height: calc($bevel-height * 0.08);
 		width: calc($bevel-width * 0.2);
@@ -108,7 +120,6 @@
 			cursor: pointer;
 		}
 	}
-	
 	#on-light{
 		width: 10%;
 		height: 10%;
@@ -119,7 +130,13 @@
 	}
 	.red{
 		background-color: red;
-		box-shadow: red 0px 0px 5px;
+		// box-shadow: red 0px 0px 5px;
+		animation: pulse 1.5s infinite alternate;
+	}
+	@keyframes pulse{
+		from{background-color: red;
+		box-shadow: red 0px 0px 5px;}
+		to{background-color: rgb(31, 31, 31);}
 	}
 	.on{
 		background-color: rgb(98, 0, 255);
@@ -190,60 +207,24 @@
 	<div id="bevel">
 		<div id="screen" class="{firstLoad? "firstLoad" : power ? "on" : "off"}">
 			{#if power}
-				{#if !loggedIn}
-				<Login on:submit={handleSubmit}/>
+				{#if !loadingFinished}
+					<Loading on:finishLoad={() => loadingFinished = true}/>
 				{:else}
-				<Welcome />
+					{#if !loggedIn && !access}
+						<Login on:submit={handleSubmit}/>
+					{:else if !loggedIn}
+						<LoginStatus {access}/>
+					{:else}
+						<Main on:logout={() => loggedIn = false} on:shutdown={shutdown}/>
+					{/if}
 				{/if}
 			{/if}
 		</div>
 	</div>
+	<!--Move this to a separate module!-->
 	<div id="knob-plate">
 		<div id="on-light" class="{power ? "green" : "red"}"></div>
 		<!--Turns the screen on/off. firstLoad ensures that the animation will not play when page is loaded first time-->
 		<div class="button" on:click={() => power = !power} on:click|once={() => firstLoad = false}></div>
-	</div>
-		
+	</div>	
 </div>
-<!-- <div id="stand"></div>
-<div id="curve-left" class="curve"></div>
-<div id="curve-right" class="curve"></div> -->
-
-	<!--#stand{
-	// 	position: relative;
-	// 	bottom: 0;
-	// 	left: calc(50% - $stand-width/2);
-	// 	height: $stand-height;
-	// 	width: $stand-width;
-	// 	background-color: black;
-	// }
-	// .curve{
-	// 	position: absolute;
-	// 	bottom: calc($stand-height * 0.1);
-	// 	height: calc($stand-height * 0.9);
-	// 	width: calc(50vw - $stand-width * 0.1);
-	// 	background-color: burlywood;
-	// }
-	// #curve-left{
-	// 	left: 0;
-	// 	border-bottom-right-radius: 50%;
-	// }
-	// #curve-right{
-	// 	right: 0;
-	// 	border-bottom-left-radius: 50%;
-	// } 
-
-// #bevel::before{
-	// 	display: block;
-	// 	content: "";
-	// 	background-color: red;
-	// 	transform: rotate(calc(360deg - math.atan($bevel-height / $bevel-width)));
-	// 	transform-origin: top left;
-	// 	width: 900px;
-	// 	height: 1px;
-	// 	// border-bottom: 1px solid red;
-	// 	// box-sizing: border-box;
-	// 	position: relative;
-	// 	left: 0;
-	// 	top: 100%;
-	// }-->
