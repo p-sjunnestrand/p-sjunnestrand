@@ -19,7 +19,7 @@
             // console.log(e);
             
             //Splits the input to check if command is correct and if following specification is correct.
-            const inputArray = input.split(" ");
+            const inputArray = e.target.value.split(" ");
             const firstArray = inputArray.slice(0, 2).join(" ");
             const secondArray = inputArray.slice(2).join(" ");
     
@@ -31,7 +31,8 @@
             dispatch("command", {
                 command: firstArray,
                 argument: secondArray
-            })
+            });
+            e.target.value = "";
             // switch (firstArray) {
             //     case "run -p" :
             //         switch (secondArray){
@@ -91,15 +92,11 @@
 </script>
 
 <style>
-    form{
-        width: 100%;
-    }
     input{
         width: 100%;
         color: white;
         background-color: rgb(98, 0, 255);;
     }
 </style>
-<form on:submit={(e) => e.preventDefault()} on:keyup|stopPropagation={handleSubmit}>
-    <input type="text" bind:value={input}/>
-</form>
+
+<input type="text" bind:value={input} on:keyup|stopPropagation={handleSubmit}/>

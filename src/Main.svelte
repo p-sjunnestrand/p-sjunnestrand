@@ -11,11 +11,22 @@
     import {createEventDispatcher} from "svelte";
 
     let logoFinished = true;
-    export let displayConsole = false;
     let pageDisplay = "main";
+
+    //Doesn't need to be exported?
+    export let displayConsole = false;
+
+    export let consoleArray = [];
     
     const dispatch = createEventDispatcher();
-    //
+    
+    const runCommandInConsole = (message) => {
+        consoleArray = consoleArray.concat(message);
+        if(!displayConsole){
+            displayConsole = true;
+        }
+    }
+
     const execCommand = (event) => {
         const programArray = ["main", "modules", "work", "edu", "portf", "specs"];
         const command = event.detail.command;
@@ -23,15 +34,15 @@
         const isNumeric = (value) => {
                 return /^\d+$/.test(value);
         }
-        // if(command === "help"){
-        //     displayConsole = true;
+        if(command === "help"){
+            displayConsole = true;
             
-        // }
+        }
         if(command === "run -p"){
             const program = programArray.find(program => program === argument);
-            //Fix this
+
             if(program === undefined){
-                console.log(`${argument} is not a program`);
+                runCommandInConsole(`${argument} is not a program`);
             } else {
                 displayConsole = false;
                 pageDisplay = program;
@@ -41,23 +52,22 @@
             if(!argument){
                 dispatch('logout');
             }
-            //Fix this
             else {
-                console.log(`${argument} is not a valid argument`);
+                runCommandInConsole(`${argument} is not a valid argument`);
             }
         }
         else if(command === "sys shutdown"){
             if(argument === "-n"){
                 dispatch("shutdown");
-            //Fix this
+            
             } else if(isNumeric(argument)){
-                console.log(`shutting down in ${argument} seconds`);
+                runCommandInConsole(`shutting down in ${argument} seconds`);
             } else {
-                console.log(`${argument} is not a valid argument`);
+                runCommandInConsole(`${argument} is not a valid argument`);
             }
         }
         else {
-            displayConsole = true;
+            runCommandInConsole("Invalid command")
         }
         //TODO:
         // if(command === "open -f")
@@ -92,7 +102,7 @@
                 <Specs on:escPress={() => displayConsole = true} on:command={execCommand}/>
             {/if}
         {:else}
-            <Console on:command={execCommand}/>
+            <Console on:command={execCommand} {consoleArray}/>
         {/if}
     {/if}
 </section>
