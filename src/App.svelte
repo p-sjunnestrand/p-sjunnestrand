@@ -9,6 +9,8 @@
 	let firstLoad = false;
 	let loadingFinished = true;
 	let access = undefined;
+	let noteVisible = true;
+	let noteOut = false;
 	
 	const handleSubmit = (e) => {
 		if(e.detail.user === "admin" && e.detail.psw === "psw123"){
@@ -29,6 +31,22 @@
 		loadingFinished = false;
 		power = false;
 	}
+	const shutDownTimer = (e) => {
+		const miliseconds = parseInt(e.detail.time)*1000;
+		console.log(miliseconds);
+		setTimeout(() => {
+			loggedIn = false;
+			loadingFinished = false;
+			power = false;
+		}, miliseconds);
+	}
+	const playNoteExitAnimation = () => {
+		noteOut = true;
+		setTimeout(() => {
+			noteVisible = false;
+		}, 1900);
+
+	}
 </script>
 
 <style type="text/scss">
@@ -42,6 +60,11 @@
 	$screen-height: 90%;
 	$bevel-width: 90%;
 	$bevel-height: 85%;
+
+	$light-on: rgb(255, 221, 68);
+	$light-off: rgb(31, 31, 31);
+	$green-status: lime;
+	$red-status: red;
 
 	#monitor{
 		width: $monitor-width;
@@ -63,6 +86,7 @@
 		background-color: rgb(95, 95, 84);
 	}
 		#screen{
+		overflow-y: scroll;
 		position: relative;
 		// font-size: 1.5em;
 		width: $screen-width;
@@ -125,22 +149,22 @@
 		height: 10%;
 	}
 	.green{
-		background-color: lime;
+		background-color: $green-status;
 		box-shadow: lime 0px 0px 5px;
 	}
 	.red{
-		background-color: red;
+		background-color: $red-status;
 		// box-shadow: red 0px 0px 5px;
 		animation: pulse 1.5s infinite alternate;
 	}
 	@keyframes pulse{
-		from{background-color: red;
+		from{background-color: $red-status;
 		box-shadow: red 0px 0px 5px;}
 		to{background-color: rgb(31, 31, 31);}
 	}
 	.on{
 		background-color: rgb(98, 0, 255);
-		border: 1px solid rgb(0, 0, 150);
+		border: 1px solid #000096;
 
 		&:after{
 			content: "";
@@ -148,7 +172,7 @@
 			position: absolute;
 			inset: 0;
 			background-color: rgb(31, 31, 31);
-			z-index: 0;
+			z-index: 2;
 			border-radius: 2em;
 			animation: greyBackdrop 0.2s linear forwards;
 		}
@@ -158,7 +182,7 @@
 			position: absolute;
 			inset: 3%;
 			background-color: rgb(255, 255, 255);
-			z-index: 1;
+			z-index: 3;
 			
 			animation: powerSwitch 0.2s linear reverse forwards;
 			
@@ -174,7 +198,7 @@
 			position: absolute;
 			inset: 3%;
 			background-color: rgb(255, 255, 255);
-			
+			z-index: 3;
 			animation: powerSwitch 0.3s linear forwards;
 			
 		}
@@ -201,9 +225,139 @@
 		background-color: rgb(31, 31, 31);
 		border: 1px solid black;
 	}
+	#led-plate{
+		height: calc($bevel-height * 0.08);
+		width: calc($bevel-width * 0.2);
+		border: 1px solid black;
+		position: relative;
+		left: calc((100% - $bevel-width * 0.3));
+		top: -0.25%;
+		background-color: grey;
+		display: flex;
+		align-items: center;
+		justify-content: space-evenly;
+	}
+	.blinking-light{
+		width: 3%;
+		aspect-ratio: 1/1;
+		background: rgb(31, 31, 31);
+		border-radius: 50%;
+	}
+	#slow-pulse{
+		animation: slow-pulse 1.5s infinite alternate;
+	}
+	#fast-ticks{
+		animation: fast-ticks 7s infinite;
+	}
+	#green-status{
+		animation: status 7s infinite;
+	}
+	@keyframes slow-pulse{
+		from{background-color: rgb(255, 221, 68);
+		box-shadow: rgb(255, 221, 68) 0px 0px 5px;}
+		to{background-color: rgb(31, 31, 31);}
+	}
+	@keyframes fast-ticks{ 	
+		0%{background-color: $light-on; box-shadow: $light-on 0px 0px 5px;}
+		6%{background-color: $light-on; box-shadow: $light-on 0px 0px 5px;}
+		7%{background-color: $light-off;}
+		8%{background-color: $light-on; box-shadow: $light-on 0px 0px 5px;}
+		9%{background-color: $light-off;}
+		10%{background-color: $light-on; box-shadow: $light-on 0px 0px 5px;}
+		11%{background-color: $light-off;}
+		12%{background-color: $light-on; box-shadow: $light-on 0px 0px 5px;}
+		20%{background-color: $light-on; box-shadow: $light-on 0px 0px 5px;}
+		21%{background-color: $light-off;}
+		22%{background-color: $light-on; box-shadow: $light-on 0px 0px 5px;}
+		52%{background-color: $light-on; box-shadow: $light-on 0px 0px 5px;}
+		53%{background-color: $light-off;}
+		54%{background-color: $light-on; box-shadow: $light-on 0px 0px 5px;}
+		55%{background-color: $light-off;}
+		56%{background-color: $light-on; box-shadow: $light-on 0px 0px 5px;}
+		80%{background-color: $light-on; box-shadow: $light-on 0px 0px 5px;}
+		81%{background-color: $light-off;}
+		82%{background-color: $light-on; box-shadow: $light-on 0px 0px 5px;}
+		83%{background-color: $light-off;}
+		84%{background-color: $light-on; box-shadow: $light-on 0px 0px 5px;}
+		85%{background-color: $light-off;}
+		86%{background-color: $light-on; box-shadow: $light-on 0px 0px 5px;}
+		87%{background-color: $light-off;}
+		88%{background-color: $light-on; box-shadow: $light-on 0px 0px 5px;}
+		89%{background-color: $light-off;}
+		90%{background-color: $light-on; box-shadow: $light-on 0px 0px 5px;}
+		100%{background-color: $light-on; box-shadow: $light-on 0px 0px 5px;}
+	}
+	@keyframes status{
+		0%{background-color: $green-status; box-shadow: $green-status 0px 0px 5px;}
+		6%{background-color: $green-status; box-shadow: $green-status 0px 0px 5px;}
+		7%{background-color: $red-status; box-shadow: $red-status 0px 0px 5px;}
+		11%{background-color: $red-status; box-shadow: $red-status 0px 0px 5px;}
+		12%{background-color: $green-status; box-shadow: $green-status 0px 0px 5px;}
+		21%{background-color: $green-status; box-shadow: $green-status 0px 0px 5px;}
+		22%{background-color: $red-status; box-shadow: $red-status 0px 0px 5px;}
+		23%{background-color: $green-status; box-shadow: $green-status 0px 0px 5px;}
+		52%{background-color: $green-status; box-shadow: $green-status 0px 0px 5px;}
+		53%{background-color: $red-status; box-shadow: $red-status 0px 0px 5px;}
+		55%{background-color: $red-status; box-shadow: $red-status 0px 0px 5px;}
+		56%{background-color: $green-status; box-shadow: $green-status 0px 0px 5px;}
+		80%{background-color: $green-status; box-shadow: $green-status 0px 0px 5px;}
+		81%{background-color: $red-status; box-shadow: $red-status 0px 0px 5px;}
+		89%{background-color: $red-status; box-shadow: $red-status 0px 0px 5px;}
+		90%{background-color: $green-status; box-shadow: $green-status 0px 0px 5px;}
+		100%{background-color: $green-status; box-shadow: $green-status 0px 0px 5px;}
+	}
+	.hinge-exit{
+		animation: hinge 2s forwards;
+	}
+	.note{
+		position: absolute;
+		width: 10%;
+		aspect-ratio: 1/1;
+		background-color: hsl(60, 100%, 50%);
+		left: 87%;
+    	top: 2%;
+    	z-index: 10;
+		color: black;
+		padding: 1%;
+		cursor: pointer;
+		font-family: 'Caveat', cursive;
+		
+		@keyframes hinge{
+			0%{
+				transform:rotate(0);
+				transform-origin:top left;
+				animation-timing-function:ease-in-out
+			}
+			20%,60%{
+				transform:rotate(60deg);
+				transform-origin:top left;
+				animation-timing-function:ease-in-out
+			}
+			40%{
+				transform:rotate(40deg);
+				transform-origin:top left;
+				animation-timing-function:ease-in-out
+			}
+			80%{
+				transform:rotate(40deg) translateY(0);
+				opacity:1;
+				transform-origin:top left;
+				animation-timing-function:ease-in-out}
+			100%{
+				transform:translateY(500px);
+				opacity:0
+			}
+			}
+	}
 </style>
 
 <div id="monitor">
+	{#if noteVisible}
+		<div class="note {noteOut ? "hinge-exit" : null}" on:click={playNoteExitAnimation}>
+			user: admin<br/>
+			password: psw123
+		</div>
+	{/if}
 	<div id="bevel">
 		<div id="screen" class="{firstLoad? "firstLoad" : power ? "on" : "off"}">
 			{#if power}
@@ -215,7 +369,7 @@
 					{:else if !loggedIn}
 						<LoginStatus {access}/>
 					{:else}
-						<Main on:logout={() => loggedIn = false} on:shutdown={shutdown}/>
+						<Main on:logout={() => loggedIn = false} on:shutdown={shutdown} on:timer={shutDownTimer}/>
 					{/if}
 				{/if}
 			{/if}
@@ -226,5 +380,11 @@
 		<div id="on-light" class="{power ? "green" : "red"}"></div>
 		<!--Turns the screen on/off. firstLoad ensures that the animation will not play when page is loaded first time-->
 		<div class="button" on:click={() => power = !power} on:click|once={() => firstLoad = false}></div>
+	</div>
+	<!--This also needs its separate module!-->
+	<div id="led-plate">
+		<div id="{power ? "slow-pulse" : null}" class="blinking-light"></div>
+		<div id="{power ? "fast-ticks" : null}" class="blinking-light"></div>
+		<div id="{power ? "green-status" : null}" class="blinking-light"></div>
 	</div>	
 </div>

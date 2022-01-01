@@ -11,7 +11,8 @@
     import {createEventDispatcher} from "svelte";
 
     let logoFinished = true;
-    let pageDisplay = "main";
+    let pageDisplay = "work";
+    let openFile = "";
 
     //Doesn't need to be exported?
     export let displayConsole = false;
@@ -27,23 +28,33 @@
         }
     }
 
+    const escPressed = () => {
+        if(openFile){
+            openFile = "";
+        } else {
+            displayConsole = true;
+        }
+    }
     const execCommand = (event) => {
-        const programArray = ["main", "modules", "work", "edu", "portf", "specs"];
+        const programArray = ["main", "modules", "work", "edu", "portf", "specs", "console"];
+        const fileArray = ["langtech", "webproc", "0", "1", "2", "3", "4"];
         const command = event.detail.command;
         const argument = event.detail.argument;
         const isNumeric = (value) => {
                 return /^\d+$/.test(value);
         }
         if(command === "help"){
-            displayConsole = true;
-            
+            runCommandInConsole("help");
         }
-        if(command === "run -p"){
+        else if(command === "run -p"){
             const program = programArray.find(program => program === argument);
 
             if(program === undefined){
                 runCommandInConsole(`${argument} is not a program`);
-            } else {
+            } else if(program === "console"){
+                displayConsole = true;
+            }
+            else {
                 displayConsole = false;
                 pageDisplay = program;
             }
@@ -61,6 +72,10 @@
                 dispatch("shutdown");
             
             } else if(isNumeric(argument)){
+                dispatch('timer', {
+                    time: (argument)
+                })
+                //Fix a visible timer counting down
                 runCommandInConsole(`shutting down in ${argument} seconds`);
             } else {
                 runCommandInConsole(`${argument} is not a valid argument`);
@@ -69,8 +84,19 @@
         else {
             runCommandInConsole("Invalid command")
         }
-        //TODO:
-        // if(command === "open -f")
+        if(command === "open -f"){
+            const file = fileArray.find(file => file === argument);
+            console.log(file);
+            console.log(argument);
+
+            if(file === undefined){
+                runCommandInConsole(`${argument} ${file} is not a file`);
+            }
+            else {
+                displayConsole = false;
+                openFile = file;
+            }
+        }
         // if(command === "open -d")
         
     }
@@ -91,9 +117,9 @@
             {#if pageDisplay === "main"}
                 <WelcomeScreen on:escPress={() => displayConsole = true} on:command={execCommand}/>
             {:else if pageDisplay === "modules"}
-                <Modules on:escPress={() => displayConsole = true} on:command={execCommand}/>
+                <Modules {openFile} on:escPress={escPressed} on:command={execCommand}/>
             {:else if pageDisplay === "work"}
-                <Work on:escPress={() => displayConsole = true} on:command={execCommand}/>
+                <Work {openFile} on:escPress={escPressed} on:command={execCommand}/>
             {:else if pageDisplay === "edu"}
                 <Education on:escPress={() => displayConsole = true} on:command={execCommand}/>
             {:else if pageDisplay === "portf"}

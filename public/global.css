@@ -1,3 +1,18 @@
+/* :root{
+	--monitor-height: 95vh;
+	--monitor-width: 90vw;
+	--stand-height: calc(100vh - var(--monitor-height));
+	--stand-width: calc(var(--monitor-width)/2);
+	--screen-width: 95%;
+	--screen-height: 90%;
+	--bevel-width: 90%;
+	--bevel-height: 85%;
+
+	--light-on: rgb(255, 221, 68);
+	--light-off: rgb(31, 31, 31);
+	--green-status: lime;
+	--red-status: red;
+} */
 html, body {
 	position: relative;
 	width: 100%;
@@ -66,4 +81,10 @@ button:not(:disabled):active {
 
 button:focus {
 	border-color: #666;
+}
+.darkStars{
+	color: rgba(255, 255, 255, 0.5);
+}
+article{
+	overflow-x: hidden;
 }

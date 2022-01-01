@@ -2,30 +2,22 @@
     import {createEventDispatcher, onMount} from "svelte";
     import Terminal from "./Terminal.svelte";
     import KeyPress from "./KeyPress.svelte";
+    import Placeholder from "./components/Placeholder.svelte";
 
     const dispatch = createEventDispatcher();
 
     let displayInput = false;
     
-    onMount(() => displayInput = false);
-    // const keypress = (e) => {
-    //     if(e.key === 'Enter'){
-    //         showInput = true;
-    //     }
-    //     if(e.key === 'Escape'){
-    //         dispatch('esc');
-    //     }
-    // }
-    
 </script>
 <style type="text/scss">
     article{
-        height: 100%;
+        height: 92%;
         width: 100%;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
+        overflow: auto;
     }
     p{
         margin: 0;
@@ -40,11 +32,16 @@
     }
     .header{
         border-bottom: 4px double;
+        width: 100%;
+    }
+    .imgWrapper{
+        width: 30%;
     }
     .imgBg{
         background-color: #653ca7;
         width: 200px;
         border: 4px solid;
+        margin: 0 auto;
     }
     img{
         width: inherit;
@@ -54,13 +51,20 @@
         justify-content: space-between;
     }
     .info{
-        width: 50%;
+        width: 60%;
     }
     li{
         list-style-type: ">";
-        margin: 1%;
+        padding-left: 1%;
+        line-height: 100%;
     }
-    
+    li:not(:last-child) { 
+        margin-bottom: 2%;  
+    }       
+    .code{
+        background-color: white;
+        color: rgb(98, 0, 255);
+    }
 </style>
 
 <!-- <svelte:window on:keyup={keypress}/> -->
@@ -86,25 +90,26 @@
                     This model of the APVLHM, the "Petter Sjunnestrand" is a specialized protocol automaton, proficient in a number of human and computer languages, as specified by the installed modules.
                 </li>
                 <li>
-                    The main uses for the Petter Sjunnestrand are cross-language human communication and computer programming.
+                    The main uses for the Petter Sjunnestrand are computer programming and cross-language human communication – although some cases of unverified human-feline communication has been reported.
                 </li>
                 <li>
                     The user interface features a non-threatening, kind-looking human face. For its uses in human to human communication, the tripolaric gaustic grid has been fitted with two arrays of muonic base plates,
                     thus enhancing the attentiveness to human emotion. 
                 </li>
-                <li>For more specs, type >run -p specs</li>
+                <li>For more specs, input <span class="code">> run -p specs</span></li>
+                <li>For a list of all commands, input <span class="code">> help</span></li>
             </ul>
         </div>
         <!-- <div class="separator"></div> -->
-        <div>
+        <div class="imgWrapper">
             <div class="imgBg">
                 <img src="./img/profile-pic.png" alt="ASCII style of Petter Sjunnestrand"/>
             </div>
         </div>
     </div>
-    {#if !displayInput}
-        <h3>PRESS ESC FOR CONSOLE. ENTER FOR TERMINAL.</h3>
-    {:else}
-        <Terminal on:command/>
-    {/if}
 </article>
+{#if !displayInput}
+    <Placeholder/>
+{:else}
+    <Terminal on:command/>
+{/if}

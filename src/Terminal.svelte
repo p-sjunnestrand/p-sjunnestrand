@@ -23,80 +23,47 @@
             const firstArray = inputArray.slice(0, 2).join(" ");
             const secondArray = inputArray.slice(2).join(" ");
     
-            //Checks if entered value is a positive integer.
-            // const isNumeric = (value) => {
-            //     return /^\d+$/.test(value);
-            // }
-    
             dispatch("command", {
                 command: firstArray,
                 argument: secondArray
             });
             e.target.value = "";
-            // switch (firstArray) {
-            //     case "run -p" :
-            //         switch (secondArray){
-            //             case "main":
-            //                 console.log("main");
-            //                 dispatch("command");
-            //                 break;
-            //             case "modules":
-            //                 console.log("modules");
-            //                 dispatch("command", {
-            //                     command: firstArray,
-            //                     document: secondArray
-            //                 });
-            //                 break;
-            //             case "edu":
-            //                 console.log("edu");
-            //                 break;
-            //             case "work":
-            //                 console.log("work");
-            //                 break;
-            //             case "portf":
-            //                 console.log("portf");
-            //                 break;
-            //             case "specs":
-            //                 console.log("specs");
-            //                 break;
-            //             default: 
-            //                 console.log(`${secondArray} is not at program`);
-            //         }
-            //         break;
-            //     case "sys exit":
-            //         if(!secondArray){
-            //             console.log("logging out...");
-            //         } else {
-            //             console.log(`${secondArray} is not a valid argument`);
-            //         }
-            //         break;
-            //     case "sys shutdown":
-            //         if(secondArray === "-n"){
-            //             console.log("shutting down");
-            //         } else if(isNumeric(secondArray)){
-            //             console.log(`shutting down in ${secondArray} seconds`);
-            //         } else {
-            //             console.log(`${secondArray} is not a valid argument`);
-            //         }
-            //         break;
-            //     // case "open"
-            //     default:
-            //         console.log("invalid command");
-            // }
-
-        }
-    
-
-        
+        } 
     }
 </script>
 
-<style>
+<style type="text/scss">
+    .inputWrapper{
+        display: flex;
+        width: 100%;
+        height: 7%;
+        position: relative;
+
+        &:before{
+            content: ">";
+            display: block;
+            width: 5%;
+            height: 100%;
+            position: absolute;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            font-size: 1.3rem;
+            padding-top: 0.6%;
+            padding-left: 1%;
+            box-sizing: border-box;
+        }
+    }
     input{
+        position: relative;
         width: 100%;
         color: white;
-        background-color: rgb(98, 0, 255);;
+        background-color: rgba(98, 0, 255, 1);
+        height: 100%;
+        padding-left: 2%;
     }
+    
 </style>
-
-<input type="text" bind:value={input} on:keyup|stopPropagation={handleSubmit}/>
+<div class="inputWrapper">
+    <input type="text" bind:value={input} on:keyup|stopPropagation={handleSubmit}/>
+</div>
