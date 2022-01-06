@@ -11,6 +11,7 @@
 	let access = undefined;
 	let noteVisible = true;
 	let noteOut = false;
+	export let bgColor = "#6200ff";
 	
 	const handleSubmit = (e) => {
 		if(e.detail.user === "admin" && e.detail.psw === "psw123"){
@@ -52,8 +53,8 @@
 <style type="text/scss">
 	@use "sass:math";
 
-	$monitor-height: 95vh;
-	$monitor-width: 90vw;
+	$monitor-height: 99vh;
+	$monitor-width: 99vw;
 	$stand-height: calc(100vh - $monitor-height);
 	$stand-width: calc($monitor-width/2);
 	$screen-width: 95%;
@@ -75,6 +76,7 @@
 		left: calc(50% - $monitor-width/2);
 		top: calc((100vh - $monitor-height)/2);
 		border-radius: 2em;
+		box-sizing: border-box;
 	}
 	#bevel{
 		height: $bevel-height;
@@ -163,7 +165,7 @@
 		to{background-color: rgb(31, 31, 31);}
 	}
 	.on{
-		background-color: rgb(98, 0, 255);
+		background-color: #6200ff;
 		border: 1px solid #000096;
 
 		&:after{

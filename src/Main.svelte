@@ -11,7 +11,7 @@
     import {createEventDispatcher} from "svelte";
 
     let logoFinished = true;
-    let pageDisplay = "work";
+    let pageDisplay = "edu";
     let openFile = "";
 
     //Doesn't need to be exported?
@@ -81,10 +81,7 @@
                 runCommandInConsole(`${argument} is not a valid argument`);
             }
         }
-        else {
-            runCommandInConsole("Invalid command")
-        }
-        if(command === "open -f"){
+        else if(command === "open -f"){
             const file = fileArray.find(file => file === argument);
             console.log(file);
             console.log(argument);
@@ -96,6 +93,17 @@
                 displayConsole = false;
                 openFile = file;
             }
+        }
+        else if(command === "sys color") {
+            const reg=/^#([0-9a-f]{3}){1,2}$/i;
+            if(reg.test(argument)) {
+                
+            } else {
+                console.log("invalid");
+            }
+        }
+        else {
+            runCommandInConsole("Invalid command")
         }
         // if(command === "open -d")
         
