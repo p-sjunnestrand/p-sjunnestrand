@@ -11,7 +11,7 @@
 	let access = undefined;
 	let noteVisible = true;
 	let noteOut = false;
-	export let bgColor = "#6200ff";
+	let bgColor = "#6200ff";
 	
 	const handleSubmit = (e) => {
 		if(e.detail.user === "admin" && e.detail.psw === "psw123"){
@@ -165,8 +165,8 @@
 		to{background-color: rgb(31, 31, 31);}
 	}
 	.on{
-		background-color: #6200ff;
-		border: 1px solid #000096;
+		// background-color: #6200ff;
+		// border: 1px solid #000096;
 
 		&:after{
 			content: "";
@@ -191,7 +191,7 @@
 		}
 	}
 	.off{
-		background-color: rgb(31, 31, 31);
+		background-color: #1f1f1f;
 		border: 1px solid black;
 		
 		&:after{
@@ -361,7 +361,7 @@
 		</div>
 	{/if}
 	<div id="bevel">
-		<div id="screen" class="{firstLoad? "firstLoad" : power ? "on" : "off"}">
+		<div id="screen" class="{firstLoad? "firstLoad" : power ? "on" : "off"}" style="background-color: {power ? bgColor : null}">
 			{#if power}
 				{#if !loadingFinished}
 					<Loading on:finishLoad={() => loadingFinished = true}/>
@@ -371,7 +371,7 @@
 					{:else if !loggedIn}
 						<LoginStatus {access}/>
 					{:else}
-						<Main on:logout={() => loggedIn = false} on:shutdown={shutdown} on:timer={shutDownTimer}/>
+						<Main on:logout={() => loggedIn = false} on:shutdown={shutdown} on:timer={shutDownTimer} on:bgcolor={e => bgColor = e.detail}/>
 					{/if}
 				{/if}
 			{/if}

@@ -7,7 +7,7 @@
 
 <style>
     article{
-        height: 100%;
+        height: 92%;
         display: flex;
         justify-content: space-between;
         flex-direction: column;
@@ -18,9 +18,9 @@
 <KeyPress on:escPress on:enterPress={() => displayInput = true}/>
 <article>
     <h2>Specs</h2>
-    {#if !displayInput}
-        <h3>PRESS ESC FOR CONSOLE. ENTER FOR TERMINAL.</h3>
-    {:else}
-        <Terminal on:command/>
-    {/if}
 </article>
+{#if !displayInput}
+    <h3>PRESS ESC FOR CONSOLE. ENTER FOR TERMINAL.</h3>
+{:else}
+    <Terminal on:command/>
+{/if}

@@ -58,7 +58,7 @@
         position: relative;
         width: 100%;
         color: white;
-        background-color: rgba(98, 0, 255, 1);
+        background-color: transparent;
         height: 100%;
         padding-left: 2%;
     }

@@ -11,7 +11,7 @@
     import {createEventDispatcher} from "svelte";
 
     let logoFinished = true;
-    let pageDisplay = "edu";
+    let pageDisplay = "specs";
     let openFile = "";
 
     //Doesn't need to be exported?
@@ -97,9 +97,13 @@
         else if(command === "sys color") {
             const reg=/^#([0-9a-f]{3}){1,2}$/i;
             if(reg.test(argument)) {
-                
-            } else {
-                console.log("invalid");
+                dispatch('bgcolor', argument);
+            } else if(argument === "-r") {
+                const resetColor = "#6200ff"
+                dispatch('bgcolor', resetColor);
+            }
+            else {
+                runCommandInConsole('Syntax error: argument must be valid hex code');
             }
         }
         else {
