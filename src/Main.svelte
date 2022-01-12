@@ -11,8 +11,9 @@
     import {createEventDispatcher} from "svelte";
 
     let logoFinished = true;
-    let pageDisplay = "specs";
+    let pageDisplay = "portf";
     let openFile = "";
+    let openDir = "";
 
     //Doesn't need to be exported?
     export let displayConsole = false;
@@ -38,6 +39,7 @@
     const execCommand = (event) => {
         const programArray = ["main", "modules", "work", "edu", "portf", "specs", "console"];
         const fileArray = ["langtech", "webproc", "0", "1", "2", "3", "4"];
+        const directoryArray = ["personal", "clients"];
         const command = event.detail.command;
         const argument = event.detail.argument;
         const isNumeric = (value) => {
@@ -92,6 +94,17 @@
             else {
                 displayConsole = false;
                 openFile = file;
+            }
+        }
+        else if(command === "open -d") {
+            const directory = directoryArray.find(dir => dir === argument);
+
+            if(directory === undefined) {
+                runCommandInConsole(`${argument} ${directory} is not a directory`);
+            }
+            else {
+                displayConsole = false;
+                openDir = directory;
             }
         }
         else if(command === "sys color") {
