@@ -148,7 +148,7 @@
             {:else if pageDisplay === "edu"}
                 <Education on:escPress={() => displayConsole = true} on:command={execCommand}/>
             {:else if pageDisplay === "portf"}
-                <Portfolio on:escPress={() => displayConsole = true} on:command={execCommand}/>
+                <Portfolio {openDir} {openFile} on:escPress={() => displayConsole = true} on:command={execCommand}/>
             {:else if pageDisplay === "specs"}
                 <Specs on:escPress={() => displayConsole = true} on:command={execCommand}/>
             {/if}

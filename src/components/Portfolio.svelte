@@ -3,44 +3,63 @@
     import Terminal from "../Terminal.svelte";
     import Directory from "../components/Directory.svelte";
     import Placeholder from "../components/Placeholder.svelte";
+    import PortfolioFile from "./PortfolioFile.svelte";
+    export let openFile;
+    export let openDir;
 
     let displayInput = false;
 
     const dirArray = ["personal", "clients"];
-    export const projects = [
-        {title: "game_of_life", directory: "personal", url: "https://p-sjunnestrand.github.io/game-of-life/"},
-        {title: "gridpainter", directory: "personal", url: "https://fed20d-grupp8-gridpainter.herokuapp.com/"},
-        {title: "trials_of_norns", directory: "personal", url: "https://p-sjunnestrand.github.io/trials-of-norns/"},
-        {title: "forca_fighting", directory: "clinets", url: "https://forcafighting.com/"},
-    ];
 </script>
 
 <style>
     article{
         height: 92%;
-        display: flex;
+        overflow-y: auto;
+        /* display: flex; */
         /* justify-content: space-between; */
         /* flex-direction: column; */
-        align-items: center;
+        /* align-items: center; */
+    }
+    .header {
+        border-bottom: 4px double;
+        width: 100%;
+    }
+    .portfolio-wrapper{
+        display: flex;
+        margin: 5% auto;
+        width: 50%;
+        justify-content: space-evenly;
+        /* height: 30%; */
+        flex-wrap: wrap;
+    }
+    .dir-image {
+        width: 10vw;
     }
 </style>
 
 <KeyPress on:escPress on:enterPress={() => displayInput = true}/>
 <article>
     <div class="header">
-        <h1>MODULES</h1>
+        <h1>PORTFOLIO</h1>
+        <p>Input <span class="code">> open -d [directory]</span> to open </p>
         <p>Input <span class="code">> open -f [file]</span> to open </p>
         <p>Input <span class="code">> help</span> for list of commands.</p>
     </div>
-    <h2>Portfolio</h2>
-    <div class="portfolio-wrapper">
-        {#each dirArray as dir}
-        <div class="card">
-            <img src="./img/dir.svg" alt="A file directory">
-            <h2>{dir}</h2>
+    {#if openDir}
+        <Directory {openDir}/>
+    {:else if openFile}
+        <PortfolioFile {openFile}/>
+    {:else}
+        <div class="portfolio-wrapper">
+            {#each dirArray as dir}
+            <div class="card">
+                <img src="./img/dir.svg" alt="A file directory" class="dir-image">
+                <h2>{dir}</h2>
+            </div>
+            {/each}
         </div>
-        {/each}
-    </div>
+    {/if}
 </article>
 {#if !displayInput}
     <Placeholder/>

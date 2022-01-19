@@ -86,7 +86,7 @@
     .file {
         /* position: relative; */
         width: 5vw;
-        height: 10vh;
+        /* height: 10vh; */
         /* border-radius: 10px; */
         /* background: white;
         color: #888;

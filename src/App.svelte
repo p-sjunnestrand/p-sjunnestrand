@@ -323,6 +323,7 @@
 		padding: 1%;
 		cursor: pointer;
 		font-family: 'Caveat', cursive;
+		font-size: 1.25rem;
 		
 		@keyframes hinge{
 			0%{
