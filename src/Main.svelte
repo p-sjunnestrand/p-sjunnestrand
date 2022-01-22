@@ -11,8 +11,10 @@
     import {createEventDispatcher} from "svelte";
 
     let logoFinished = true;
+    //This needs to be remade more efficiently.
     let pageDisplay = "portf";
     let openFile = "";
+    let fileDesc = "";
     let openDir = "";
 
     //Doesn't need to be exported?
@@ -22,6 +24,24 @@
     
     const dispatch = createEventDispatcher();
     
+    const commandArray = [
+            {program: "main", directory: undefined, file: undefined},
+            {program: "modules", directory: undefined, file: "langtech"},
+            {program: "modules", directory: undefined, file: "webproc"},
+            {program: "work", directory: undefined, file: "0"},
+            {program: "work", directory: undefined, file: "1"},
+            {program: "work", directory: undefined, file: "2"},
+            {program: "work", directory: undefined, file: "3"},
+            {program: "work", directory: undefined, file: "4"},
+            {program: "edu", directory: undefined, file: undefined},
+            {program: "portf", directory: "personal", file: "game_of_life", desc: "Implementation of the classic cellular automation first devised by John Horton Conway. Made in React."},
+            {program: "portf", directory: "personal", file: "gridpainter", desc: "An online co-op multiplayer game using socket.io. Work with three friends to paint a picture before the time is up. Made in vanilla JS."},
+            {program: "portf", directory: "personal", file: "trials_of_norns", desc: "A puzzle game made in vanilla JS. Test your wits and think outside the box."},
+            {program: "portf", directory: "clients", file: "forca_fighting", desc: "Website for a martial arts club in Stockholm. Made in React"},
+            {program: "specs", directory: undefined, file: undefined},
+            {program: "console", directory: undefined, file: undefined},
+        ];
+
     const runCommandInConsole = (message) => {
         consoleArray = consoleArray.concat(message);
         if(!displayConsole){
@@ -36,29 +56,32 @@
             displayConsole = true;
         }
     }
+    const isNumeric = (value) => {
+            return /^\d+$/.test(value);
+    }
     const execCommand = (event) => {
         const programArray = ["main", "modules", "work", "edu", "portf", "specs", "console"];
         const fileArray = ["langtech", "webproc", "0", "1", "2", "3", "4"];
         const directoryArray = ["personal", "clients"];
+        
         const command = event.detail.command;
         const argument = event.detail.argument;
-        const isNumeric = (value) => {
-                return /^\d+$/.test(value);
-        }
+        let matchingCommand;
         if(command === "help"){
             runCommandInConsole("help");
         }
         else if(command === "run -p"){
-            const program = programArray.find(program => program === argument);
+            // const program = programArray.find(program => program === argument);
+            matchingCommand = commandArray.find(command => command.program === argument);
 
-            if(program === undefined){
+            if(matchingCommand === undefined){
                 runCommandInConsole(`${argument} is not a program`);
-            } else if(program === "console"){
+            } else if(matchingCommand.program === "console"){
                 displayConsole = true;
             }
             else {
                 displayConsole = false;
-                pageDisplay = program;
+                pageDisplay = matchingCommand.program;
             }
         }
         else if(command === "sys exit"){
@@ -84,27 +107,32 @@
             }
         }
         else if(command === "open -f"){
-            const file = fileArray.find(file => file === argument);
-            console.log(file);
-            console.log(argument);
-
-            if(file === undefined){
-                runCommandInConsole(`${argument} ${file} is not a file`);
+            matchingCommand = commandArray.find(command => command.file === argument);
+        
+            if(matchingCommand === undefined){
+                runCommandInConsole(`${argument} is not a file`);
             }
             else {
                 displayConsole = false;
-                openFile = file;
+                pageDisplay = matchingCommand.program;
+                openFile = matchingCommand.file;
+                //This needs to be remade with the object array above.
+                if(matchingCommand.desc) {
+                    fileDesc = matchingCommand.desc;
+                    console.log(fileDesc);
+                }
             }
         }
         else if(command === "open -d") {
             const directory = directoryArray.find(dir => dir === argument);
-
-            if(directory === undefined) {
-                runCommandInConsole(`${argument} ${directory} is not a directory`);
+            matchingCommand = commandArray.find(command => command.directory === argument);
+            if(matchingCommand === undefined) {
+                runCommandInConsole(`${argument} is not a directory`);
             }
             else {
                 displayConsole = false;
-                openDir = directory;
+                pageDisplay = matchingCommand.program;
+                openDir = matchingCommand.directory;
             }
         }
         else if(command === "sys color") {
@@ -122,8 +150,9 @@
         else {
             runCommandInConsole("Invalid command")
         }
-        // if(command === "open -d")
-        
+    }
+    const closeDir = () => {
+        console.log("close dir!");
     }
 </script>
 
@@ -148,7 +177,7 @@
             {:else if pageDisplay === "edu"}
                 <Education on:escPress={() => displayConsole = true} on:command={execCommand}/>
             {:else if pageDisplay === "portf"}
-                <Portfolio {openDir} {openFile} on:escPress={() => displayConsole = true} on:command={execCommand}/>
+                <Portfolio {openDir} {openFile} {fileDesc} on:escPress={() => displayConsole = true} on:command={execCommand} on:closeDir={() => openDir = ""}/>
             {:else if pageDisplay === "specs"}
                 <Specs on:escPress={() => displayConsole = true} on:command={execCommand}/>
             {/if}

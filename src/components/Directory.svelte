@@ -1,6 +1,8 @@
 <script>
-    import { beforeUpdate } from 'svelte';
+    import { beforeUpdate, onDestroy, createEventDispatcher } from 'svelte';
     export let openDir;
+
+    const dispatch = createEventDispatcher();
 
     const projects = [
         {title: "game_of_life", directory: "personal", url: "https://p-sjunnestrand.github.io/game-of-life/"},
@@ -9,9 +11,14 @@
         {title: "forca_fighting", directory: "clients", url: "https://forcafighting.com/"},
     ];
     let currentProjects = projects.filter(project => project.directory === openDir);
+
     beforeUpdate(() => {
         currentProjects = projects.filter(project => project.directory === openDir);
     })
+
+    onDestroy(() => {
+        dispatch('closeDir');
+    });
 </script>
 
 <style>

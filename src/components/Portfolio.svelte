@@ -6,6 +6,7 @@
     import PortfolioFile from "./PortfolioFile.svelte";
     export let openFile;
     export let openDir;
+    export let fileDesc;
 
     let displayInput = false;
 
@@ -47,9 +48,9 @@
         <p>Input <span class="code">> help</span> for list of commands.</p>
     </div>
     {#if openDir}
-        <Directory {openDir}/>
+        <Directory {openDir} on:closeDir/>
     {:else if openFile}
-        <PortfolioFile {openFile}/>
+        <PortfolioFile {openFile} {fileDesc}/>
     {:else}
         <div class="portfolio-wrapper">
             {#each dirArray as dir}
