@@ -7,6 +7,7 @@
     export let openFile;
     export let openDir;
     export let fileDesc;
+    export let fileUrl;
 
     let displayInput = false;
 
@@ -22,10 +23,10 @@
         /* flex-direction: column; */
         /* align-items: center; */
     }
-    .header {
+    /* .header {
         border-bottom: 4px double;
         width: 100%;
-    }
+    } */
     .portfolio-wrapper{
         display: flex;
         margin: 5% auto;
@@ -50,7 +51,7 @@
     {#if openDir}
         <Directory {openDir} on:closeDir/>
     {:else if openFile}
-        <PortfolioFile {openFile} {fileDesc}/>
+        <PortfolioFile {openFile} {fileDesc} {fileUrl} on:closeFile/>
     {:else}
         <div class="portfolio-wrapper">
             {#each dirArray as dir}

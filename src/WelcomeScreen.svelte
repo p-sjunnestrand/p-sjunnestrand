@@ -15,7 +15,7 @@
         width: 100%;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
+        // justify-content: space-between;
         align-items: center;
         overflow: auto;
     }
@@ -49,6 +49,7 @@
     .infoWrapper{
         display: flex;
         justify-content: space-between;
+        margin: auto 0;
     }
     .info{
         width: 60%;
@@ -61,10 +62,10 @@
     li:not(:last-child) { 
         margin-bottom: 2%;  
     }       
-    .code{
-        background-color: white;
-        color: rgb(98, 0, 255);
-    }
+    // .code{
+    //     background-color: white;
+    //     color: rgb(98, 0, 255);
+    // }
 </style>
 
 <!-- <svelte:window on:keyup={keypress}/> -->

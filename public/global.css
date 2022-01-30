@@ -88,3 +88,11 @@ button:focus {
 article{
 	overflow-x: hidden;
 }
+.code{
+	background-color: white;
+	color: rgb(98, 0, 255);
+}
+.header{
+	border-bottom: 4px double;
+	width: 100%;
+}

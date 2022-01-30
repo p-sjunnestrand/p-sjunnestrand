@@ -1,6 +1,15 @@
 <script>
+    import {onDestroy, createEventDispatcher} from 'svelte';
+
     export let openFile;
     export let fileDesc;
+    export let fileUrl;
+
+    const dispatch = createEventDispatcher();
+
+    onDestroy(() => {
+        dispatch('closeFile');
+    })
 </script>
 <style>
     h2 {
@@ -21,4 +30,5 @@
 <div class="fileWindow">
     <h2>{openFile}</h2>
     <p>{fileDesc}</p>
+    <a href={fileUrl}>{fileUrl}</a>
 </div>

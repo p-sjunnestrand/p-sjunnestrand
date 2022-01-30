@@ -16,6 +16,7 @@
     let openFile = "";
     let fileDesc = "";
     let openDir = "";
+    let fileUrl = "";
 
     //Doesn't need to be exported?
     export let displayConsole = false;
@@ -34,10 +35,10 @@
             {program: "work", directory: undefined, file: "3"},
             {program: "work", directory: undefined, file: "4"},
             {program: "edu", directory: undefined, file: undefined},
-            {program: "portf", directory: "personal", file: "game_of_life", desc: "Implementation of the classic cellular automation first devised by John Horton Conway. Made in React."},
-            {program: "portf", directory: "personal", file: "gridpainter", desc: "An online co-op multiplayer game using socket.io. Work with three friends to paint a picture before the time is up. Made in vanilla JS."},
-            {program: "portf", directory: "personal", file: "trials_of_norns", desc: "A puzzle game made in vanilla JS. Test your wits and think outside the box."},
-            {program: "portf", directory: "clients", file: "forca_fighting", desc: "Website for a martial arts club in Stockholm. Made in React"},
+            {program: "portf", directory: "personal", file: "game_of_life", desc: "Implementation of the classic cellular automation first devised by John Horton Conway. Made in React.", url: "https://p-sjunnestrand.github.io/game-of-life/"},
+            {program: "portf", directory: "personal", file: "gridpainter", desc: "An online co-op multiplayer game using socket.io. Work with three friends to paint a picture before the time is up. Made in vanilla JS.", url: "https://fed20d-grupp8-gridpainter.herokuapp.com/"},
+            {program: "portf", directory: "personal", file: "trials_of_norns", desc: "A puzzle game made in vanilla JS. Test your wits and think outside the box.", url: "https://p-sjunnestrand.github.io/trials-of-norns/"},
+            {program: "portf", directory: "clients", file: "forca_fighting", desc: "Website for a martial arts club in Stockholm. Made in React", url: "https://forcafighting.com/"},
             {program: "specs", directory: undefined, file: undefined},
             {program: "console", directory: undefined, file: undefined},
         ];
@@ -116,9 +117,11 @@
                 displayConsole = false;
                 pageDisplay = matchingCommand.program;
                 openFile = matchingCommand.file;
+                console.log(openFile);
                 //This needs to be remade with the object array above.
                 if(matchingCommand.desc) {
                     fileDesc = matchingCommand.desc;
+                    fileUrl = matchingCommand.url;
                     console.log(fileDesc);
                 }
             }
@@ -171,13 +174,13 @@
             {#if pageDisplay === "main"}
                 <WelcomeScreen on:escPress={() => displayConsole = true} on:command={execCommand}/>
             {:else if pageDisplay === "modules"}
-                <Modules {openFile} on:escPress={escPressed} on:command={execCommand}/>
+                <Modules {openFile} on:escPress={escPressed} on:command={execCommand} on:closeFile={() => openFile = ""}/>
             {:else if pageDisplay === "work"}
-                <Work {openFile} on:escPress={escPressed} on:command={execCommand}/>
+                <Work {openFile} on:escPress={escPressed} on:command={execCommand} on:closeFile={() => openFile = ""}/>
             {:else if pageDisplay === "edu"}
                 <Education on:escPress={() => displayConsole = true} on:command={execCommand}/>
             {:else if pageDisplay === "portf"}
-                <Portfolio {openDir} {openFile} {fileDesc} on:escPress={() => displayConsole = true} on:command={execCommand} on:closeDir={() => openDir = ""}/>
+                <Portfolio {openDir} {openFile} {fileDesc} {fileUrl} on:escPress={() => displayConsole = true} on:command={execCommand} on:closeDir={() => openDir = ""} on:closeFile={() => openFile = ""}/>
             {:else if pageDisplay === "specs"}
                 <Specs on:escPress={() => displayConsole = true} on:command={execCommand}/>
             {/if}

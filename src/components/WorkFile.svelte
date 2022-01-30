@@ -1,6 +1,13 @@
 <script>
+    import {onDestroy, createEventDispatcher} from 'svelte';
     export let workArray;
     export let fileIndex;
+
+    const dispatch = createEventDispatcher();
+
+    onDestroy(() => {
+        dispatch('closeFile');
+    })
 
     const currentFile = workArray.find(file => file.index === fileIndex);
 

@@ -1,6 +1,13 @@
 <script>
+    import {onDestroy, createEventDispatcher} from 'svelte';
     export let fileObjects;
     export let fileName;
+
+    const dispatch = createEventDispatcher();
+
+    onDestroy(() => {
+        dispatch('closeFile');
+    });
 
     const currentFile = fileObjects.find(file => file.title === fileName);
     const currentSkills = currentFile.skills;

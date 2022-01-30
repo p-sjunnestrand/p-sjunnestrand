@@ -23,7 +23,7 @@
         },
     ];
 
-    export let openFile;
+    // export let openFile;
 </script>
 
 <style>
@@ -33,14 +33,14 @@
         position: relative;
     }
     
-    .code{
+    /* .code{
         background-color: white;
         color: rgb(98, 0, 255);
     }
     .header{
         border-bottom: 4px double;
         width: 100%;
-    }
+    } */
     .edu-wrapper {
         border: 1px white solid;
         margin-top: 2rem;
@@ -78,32 +78,25 @@
         <h1>WORK</h1>
         <p>Input <span class="code">> help</span> for list of commands.</p>
     </div>
-    {#if openFile}
-        <div>Education</div>
-        {:else}
-            <div class="edu-wrapper">
+        <div class="edu-wrapper">
+            <ul class="edu-card">
+                <li class="label edu-detail">YEAR</li>
+                <li class="label edu-detail">SCHOOL</li>
+                <li class="label edu-edu edu-detail">EDUCATION</li>
+            </ul>
+            {#each eduArray as edu}
                 <ul class="edu-card">
-                    <li class="label edu-detail">YEAR</li>
-                    <li class="label edu-detail">SCHOOL</li>
-                    <li class="label edu-edu edu-detail">EDUCATION</li>
+                    <li class="edu-year edu-detail">{edu.graduationYear}</li>
+                    <li class="edu-school edu-detail">{edu.school}</li>
+                    <li class="edu-edu edu-detail">{edu.education}</li>
+                    <!-- <div class="work-desc work-detail">{work.desc}</div> -->
                 </ul>
-                {#each eduArray as edu}
-                    <ul class="edu-card">
-                        <li class="edu-year edu-detail">{edu.graduationYear}</li>
-                        <li class="edu-school edu-detail">{edu.school}</li>
-                        <li class="edu-edu edu-detail">{edu.education}</li>
-                        <!-- <div class="work-desc work-detail">{work.desc}</div> -->
-                    </ul>
-                {/each}
-            </div>
-    {/if}  
+            {/each}
+        </div>
 </article>
-{#if openFile}
-    <p>PRESS ESC TO CLOSE FILE</p>
+
+{#if !displayInput}
+    <Placeholder/>
 {:else}
-    {#if !displayInput}
-        <Placeholder/>
-    {:else}
-        <Terminal on:command/>
-    {/if}
+    <Terminal on:command/>
 {/if}

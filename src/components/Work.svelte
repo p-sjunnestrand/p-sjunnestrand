@@ -60,14 +60,14 @@
         position: relative;
     }
     
-    .code{
+    /* .code{
         background-color: white;
         color: rgb(98, 0, 255);
     }
     .header{
         border-bottom: 4px double;
         width: 100%;
-    }
+    } */
     .work-wrapper {
         border: 1px white solid;
         margin-top: 2rem;
@@ -114,7 +114,7 @@
         <p>Input <span class="code">> help</span> for list of commands.</p>
     </div>
     {#if openFile}
-        <WorkFile fileIndex={openFile} {workArray}/>
+        <WorkFile fileIndex={openFile} {workArray} on:closeFile/>
         {:else}
             <div class="work-wrapper">
                 <ul class="work-card">

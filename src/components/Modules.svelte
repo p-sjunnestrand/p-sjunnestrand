@@ -65,14 +65,14 @@
         /* height: 30%; */
         flex-wrap: wrap;
     }
-    .code{
+    /* .code{
         background-color: white;
         color: rgb(98, 0, 255);
     }
     .header{
         border-bottom: 4px double;
         width: 100%;
-    }
+    } */
     h2{
         text-align: center;
     }
@@ -105,7 +105,7 @@
         <p>Input <span class="code">> help</span> for list of commands.</p>
     </div>
     {#if openFile}
-        <ModuleFile fileName={openFile} fileObjects={cardObjects}/>
+        <ModuleFile fileName={openFile} fileObjects={cardObjects} on:closeFile/>
         {:else}
         <div id="modulesWrapper">
             {#each cardObjects as cardObject}
