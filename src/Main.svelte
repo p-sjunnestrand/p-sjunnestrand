@@ -154,9 +154,9 @@
             runCommandInConsole("Invalid command")
         }
     }
-    const closeDir = () => {
-        console.log("close dir!");
-    }
+    // const closeDir = () => {
+    //     console.log("close dir!");
+    // }
 </script>
 
 <style>
