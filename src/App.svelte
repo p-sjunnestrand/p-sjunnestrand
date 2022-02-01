@@ -4,10 +4,10 @@
 	import LoginStatus from "./LoginStatus.svelte"
 	import Main from "./Main.svelte"
 
-	let loggedIn = true;
-	let power = true;
-	let firstLoad = false;
-	let loadingFinished = true;
+	let loggedIn = false;
+	let power = false;
+	let firstLoad = true;
+	let loadingFinished = false;
 	let access = undefined;
 	let noteVisible = true;
 	let noteOut = false;

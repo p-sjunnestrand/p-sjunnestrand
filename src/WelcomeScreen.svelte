@@ -104,7 +104,7 @@
         <!-- <div class="separator"></div> -->
         <div class="imgWrapper">
             <div class="imgBg">
-                <img src="./img/profile-pic.png" alt="ASCII style of Petter Sjunnestrand"/>
+                <img src="./img/profile-pic-small.png" alt="ASCII style of Petter Sjunnestrand"/>
             </div>
         </div>
     </div>

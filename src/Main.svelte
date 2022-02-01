@@ -12,7 +12,7 @@
 
     let logoFinished = true;
     //This needs to be remade more efficiently.
-    let pageDisplay = "portf";
+    let pageDisplay = "main";
     let openFile = "";
     let fileDesc = "";
     let openDir = "";
