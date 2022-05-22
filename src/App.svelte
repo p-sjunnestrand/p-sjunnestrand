@@ -110,6 +110,7 @@
 	#knob-plate{
 		height: calc($bevel-height * 0.08);
 		width: calc($bevel-width * 0.2);
+		min-width: 75px;
 		border: 1px solid black;
 		position: relative;
 		left: calc((100% - $bevel-width * 0.9)/2);
@@ -121,6 +122,7 @@
 	}
 	.button{
 		width: 35%;
+		min-width: 48px;
 		height: 90%;
 		box-shadow: rgba(0,0,0,0.4) 1px 1px 5px;
 		background-color: rgb(95, 95, 84);
@@ -230,6 +232,7 @@
 	#led-plate{
 		height: calc($bevel-height * 0.08);
 		width: calc($bevel-width * 0.2);
+		min-width: 75px;
 		border: 1px solid black;
 		position: relative;
 		left: calc((100% - $bevel-width * 0.3));
@@ -241,6 +244,7 @@
 	}
 	.blinking-light{
 		width: 3%;
+		min-width: 5px;
 		aspect-ratio: 1/1;
 		background: rgb(31, 31, 31);
 		border-radius: 50%;
@@ -314,9 +318,10 @@
 	.note{
 		position: absolute;
 		width: 10%;
+		min-width: 95px;
 		aspect-ratio: 1/1;
 		background-color: hsl(60, 100%, 50%);
-		left: 87%;
+		right: 2%;
     	top: 2%;
     	z-index: 10;
 		color: black;

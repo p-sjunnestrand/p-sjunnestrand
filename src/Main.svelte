@@ -10,7 +10,7 @@
     import Console from "./components/Console.svelte";
     import {createEventDispatcher} from "svelte";
 
-    let logoFinished = true;
+    let logoFinished = false;
     //This needs to be remade more efficiently.
     let pageDisplay = "main";
     let openFile = "";

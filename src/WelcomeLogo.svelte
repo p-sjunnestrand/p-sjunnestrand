@@ -4,11 +4,11 @@
 
     const dispatch = createEventDispatcher();
 
-    // onMount(() => {
-    //     setTimeout(() => {
-    //         dispatch('logoLoaded')
-    //     }, 6000);
-    // })
+    onMount(() => {
+        setTimeout(() => {
+            dispatch('logoLoaded')
+        }, 6000);
+    })
 </script>
 
 <style type="text/scss">

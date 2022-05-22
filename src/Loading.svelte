@@ -1,6 +1,6 @@
 <script>
     import LoadingDots from "./loadingDots.svelte";
-
+    import StartError from './components/StartError.svelte';
     
 
     let status = {
@@ -11,7 +11,7 @@
         fifth: false,
     }
 
-    function typewriter(node, { speed = 3 }) {
+    function typewriter(node, { speed = 5 }) {
         const valid = (
             node.childNodes.length === 1 &&
             node.childNodes[0].nodeType === Node.TEXT_NODE
@@ -21,7 +21,7 @@
             throw new Error(`This transition only works on elements with a single text node child`);
         }
 
-        const delay = 1500;
+        const delay = 1000;
         const text = node.textContent;
         const duration = text.length / (speed * 0.01);
 
@@ -35,7 +35,9 @@
         };
     }
 
-    
+    function detectMob() {
+        return ( ( window.innerWidth <= 800 ));
+    }
 </script>
 
 <style>
@@ -63,10 +65,17 @@
             <li in:typewriter on:introend="{() => status.fifth = true}">decoupling phase shift rotodrive...</li>
         {/if}
         {#if status.fifth}
-            <p in:typewriter on:introend="{() => status.sixth = true}">ALL SYSTEMS NOMINAL. ENGAGING ROTOLIMBIC CHAMBER.</p>
+            {#if detectMob()}
+                <p in:typewriter on:introend="{() => status.seventh = true}">EXCEPTION TYPE 4 DETECTED. ABORTING START UP...</p>
+            {:else}
+                <p in:typewriter on:introend="{() => status.sixth = true}">ALL SYSTEMS NOMINAL. ENGAGING ROTOLIMBIC CHAMBER.</p>
+            {/if}
         {/if}
         {#if status.sixth}
             <LoadingDots on:finishLoad/>
+        {/if}
+        {#if status.seventh}
+            <StartError/>
         {/if}
     </ul>
 </section>

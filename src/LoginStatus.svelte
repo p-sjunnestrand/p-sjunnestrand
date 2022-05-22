@@ -15,7 +15,10 @@
         width: 60%;
         height: 30%;
         font-size: 3em;
-        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
     .denied{
         background-color: red;
