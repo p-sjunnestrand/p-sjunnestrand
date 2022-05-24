@@ -2,7 +2,8 @@
 	import Login from "./Login.svelte";
 	import Loading from "./Loading.svelte";
 	import LoginStatus from "./LoginStatus.svelte"
-	import Main from "./Main.svelte"
+	import Main from "./Main.svelte";
+	import StartError from './components/StartError.svelte';
 
 	let loggedIn = false;
 	let power = false;
@@ -12,6 +13,7 @@
 	let noteVisible = true;
 	let noteOut = false;
 	let bgColor = "#6200ff";
+	let isMobile = false;
 	
 	const handleSubmit = (e) => {
 		if(e.detail.user === "admin" && e.detail.psw === "psw123"){
@@ -370,7 +372,11 @@
 		<div id="screen" class="{firstLoad? "firstLoad" : power ? "on" : "off"}" style="background-color: {power ? bgColor : null}">
 			{#if power}
 				{#if !loadingFinished}
-					<Loading on:finishLoad={() => loadingFinished = true}/>
+					{#if !isMobile}
+						<Loading on:finishLoad={() => loadingFinished = true} on:mobileDetected={() => isMobile = true}/>
+					{:else}
+						<StartError on:errorShutDown={shutdown}/>
+					{/if}
 				{:else}
 					{#if !loggedIn && !access}
 						<Login on:submit={handleSubmit}/>

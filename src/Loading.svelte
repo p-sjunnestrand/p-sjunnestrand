@@ -38,6 +38,12 @@
     function detectMob() {
         return ( ( window.innerWidth <= 800 ));
     }
+
+    function runTimer () {
+        setTimeout(() => {
+            status.seventh = true;
+        }, 1000);
+    }
 </script>
 
 <style>
@@ -48,7 +54,9 @@
     }
     p{
         margin-top: 4em;
-        
+    }
+    .warning {
+        color: red;
     }
 </style>
 
@@ -64,18 +72,18 @@
         {#if status.fourth}
             <li in:typewriter on:introend="{() => status.fifth = true}">decoupling phase shift rotodrive...</li>
         {/if}
-        {#if status.fifth}
-            {#if detectMob()}
-                <p in:typewriter on:introend="{() => status.seventh = true}">EXCEPTION TYPE 4 DETECTED. ABORTING START UP...</p>
-            {:else}
-                <p in:typewriter on:introend="{() => status.sixth = true}">ALL SYSTEMS NOMINAL. ENGAGING ROTOLIMBIC CHAMBER.</p>
-            {/if}
-        {/if}
-        {#if status.sixth}
-            <LoadingDots on:finishLoad/>
-        {/if}
-        {#if status.seventh}
-            <StartError/>
-        {/if}
     </ul>
+    {#if status.fifth}
+        {#if detectMob()}
+            <p in:typewriter class="warning" on:introend="{runTimer}">EXCEPTION TYPE 4 DETECTED. ABORTING START UP</p>
+        {:else}
+            <p in:typewriter on:introend="{() => status.sixth = true}">ALL SYSTEMS NOMINAL. ENGAGING ROTOLIMBIC CHAMBER.</p>
+        {/if}
+    {/if}
+    {#if status.sixth}
+        <LoadingDots on:finishLoad/>
+    {/if}
+    {#if status.seventh}
+        <StartError/>
+    {/if}
 </section>
