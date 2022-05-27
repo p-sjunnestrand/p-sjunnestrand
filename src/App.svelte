@@ -48,7 +48,10 @@
 		setTimeout(() => {
 			noteVisible = false;
 		}, 1900);
-
+	}
+	const shutDownOnBootError = () => {
+		shutdown();
+		isMobile = false;
 	}
 </script>
 
@@ -375,7 +378,7 @@
 					{#if !isMobile}
 						<Loading on:finishLoad={() => loadingFinished = true} on:mobileDetected={() => isMobile = true}/>
 					{:else}
-						<StartError on:errorShutDown={shutdown}/>
+						<StartError on:errorShutDown={shutDownOnBootError}/>
 					{/if}
 				{:else}
 					{#if !loggedIn && !access}

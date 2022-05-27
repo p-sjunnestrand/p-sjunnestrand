@@ -1,7 +1,9 @@
 <script>
     import LoadingDots from "./loadingDots.svelte";
     import StartError from './components/StartError.svelte';
+    import {createEventDispatcher} from 'svelte';
     
+    const dispatch = createEventDispatcher();
 
     let status = {
         first: false,
@@ -40,8 +42,10 @@
     }
 
     function runTimer () {
+        console.log("hej!");
         setTimeout(() => {
-            status.seventh = true;
+            // status.seventh = true;
+            dispatch('mobileDetected');
         }, 1000);
     }
 </script>
@@ -75,7 +79,7 @@
     </ul>
     {#if status.fifth}
         {#if detectMob()}
-            <p in:typewriter class="warning" on:introend="{runTimer}">EXCEPTION TYPE 4 DETECTED. ABORTING START UP</p>
+            <p in:typewriter class="warning" on:introend={runTimer}>EXCEPTION TYPE 4 DETECTED. ABORTING START UP</p>
         {:else}
             <p in:typewriter on:introend="{() => status.sixth = true}">ALL SYSTEMS NOMINAL. ENGAGING ROTOLIMBIC CHAMBER.</p>
         {/if}
