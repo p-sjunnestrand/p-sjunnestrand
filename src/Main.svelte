@@ -10,9 +10,9 @@
     import Console from "./components/Console.svelte";
     import {createEventDispatcher} from "svelte";
 
-    let logoFinished = false;
+    let logoFinished = true;
     //This needs to be remade more efficiently.
-    let pageDisplay = "main";
+    let pageDisplay = "modules";
     let openFile = "";
     let fileDesc = "";
     let openDir = "";
@@ -26,21 +26,21 @@
     const dispatch = createEventDispatcher();
     
     const commandArray = [
-            {program: "main", directory: undefined, file: undefined},
-            {program: "modules", directory: undefined, file: "langtech"},
-            {program: "modules", directory: undefined, file: "webproc"},
-            {program: "work", directory: undefined, file: "0"},
-            {program: "work", directory: undefined, file: "1"},
-            {program: "work", directory: undefined, file: "2"},
-            {program: "work", directory: undefined, file: "3"},
-            {program: "work", directory: undefined, file: "4"},
-            {program: "edu", directory: undefined, file: undefined},
-            {program: "portf", directory: "personal", file: "game_of_life", desc: "Implementation of the classic cellular automation first devised by John Horton Conway. Made in React.", url: "https://p-sjunnestrand.github.io/game-of-life/"},
-            {program: "portf", directory: "personal", file: "gridpainter", desc: "An online co-op multiplayer game using socket.io. Work with three friends to paint a picture before the time is up. Made in vanilla JS.", url: "https://fed20d-grupp8-gridpainter.herokuapp.com/"},
-            {program: "portf", directory: "personal", file: "trials_of_norns", desc: "A puzzle game made in vanilla JS. Test your wits and think outside the box.", url: "https://p-sjunnestrand.github.io/trials-of-norns/"},
-            {program: "portf", directory: "clients", file: "forca_fighting", desc: "Website for a martial arts club in Stockholm. Made in React", url: "https://forcafighting.com/"},
-            {program: "specs", directory: undefined, file: undefined},
-            {program: "console", directory: undefined, file: undefined},
+            {program: "main", directory: undefined, file: undefined, altFile: undefined},
+            {program: "modules", directory: undefined, file: "langtech", altFile: "langtech.sys"},
+            {program: "modules", directory: undefined, file: "webproc", altFile: "webproc.sys"},
+            {program: "work", directory: undefined, file: "0", altFile: undefined},
+            {program: "work", directory: undefined, file: "1", altFile: undefined},
+            {program: "work", directory: undefined, file: "2", altFile: undefined},
+            {program: "work", directory: undefined, file: "3", altFile: undefined},
+            {program: "work", directory: undefined, file: "4", altFile: undefined},
+            {program: "edu", directory: undefined, file: undefined, altFile: undefined},
+            {program: "portf", directory: "personal", file: "game_of_life", altFile: undefined, desc: "Implementation of the classic cellular automation first devised by John Horton Conway. Made in React.", url: "https://p-sjunnestrand.github.io/game-of-life/"},
+            {program: "portf", directory: "personal", file: "gridpainter", altFile: undefined, desc: "An online co-op multiplayer game using socket.io. Work with three friends to paint a picture before the time is up. Made in vanilla JS.", url: "https://fed20d-grupp8-gridpainter.herokuapp.com/"},
+            {program: "portf", directory: "personal", file: "trials_of_norns", altFile: undefined, desc: "A puzzle game made in vanilla JS. Test your wits and think outside the box.", url: "https://p-sjunnestrand.github.io/trials-of-norns/"},
+            {program: "portf", directory: "clients", file: "forca_fighting", altFile: undefined, desc: "Website for a martial arts club in Stockholm. Made in React", url: "https://forcafighting.com/"},
+            {program: "specs", directory: undefined, file: undefined, altFile: undefined},
+            {program: "console", directory: undefined, file: undefined, altFile: undefined},
         ];
 
     const runCommandInConsole = (message) => {
@@ -108,7 +108,7 @@
             }
         }
         else if(command === "open -f"){
-            matchingCommand = commandArray.find(command => command.file === argument);
+            matchingCommand = commandArray.find(command => command.file === argument || command.altFile === argument);
         
             if(matchingCommand === undefined){
                 runCommandInConsole(`${argument} is not a file`);

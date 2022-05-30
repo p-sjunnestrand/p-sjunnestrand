@@ -5,10 +5,10 @@
 	import Main from "./Main.svelte";
 	import StartError from './components/StartError.svelte';
 
-	let loggedIn = false;
-	let power = false;
-	let firstLoad = true;
-	let loadingFinished = false;
+	let loggedIn = true;
+	let power = true;
+	let firstLoad = false;
+	let loadingFinished = true;
 	let access = undefined;
 	let noteVisible = true;
 	let noteOut = false;
@@ -95,7 +95,7 @@
 		#screen{
 		overflow-y: scroll;
 		position: relative;
-		// font-size: 1.5em;
+		font-size: 1.2em;
 		width: $screen-width;
 		height: $screen-height;
 		left: calc((100% - $screen-width)/2);

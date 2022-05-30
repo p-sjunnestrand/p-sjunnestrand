@@ -41,11 +41,14 @@
         padding: 2%;
         box-sizing: border-box;
     }
-    .skillWrapper{
+    .skillsWrapper{
         display: flex;
-        justify-content: space-around;
+        // justify-content: space-around;
         background-color: $secondary-background;
         color: white;
+    }
+    .skill{
+        display: flex;
     }
 </style>
 
@@ -53,12 +56,35 @@
 <div class="fileWindow">
     <h2>{fileName}</h2>
     <p>{currentFile.text}</p>
-    <div class="skillWrapper">
-        <div class="skillName">
+    <div class="skillsWrapper">
+        {#each currentSkills as skill}
+            <div class="skill">
+                <div>
+                    {skill.name}
+                </div>
+                {#if skill.subSkills}
+                    {#each skill.subSkills as subSkill}
+                        <div>{subSkill}</div>
+                    {/each}
+                {/if}
+                <div>
+                    {skill.memory}kB
+                </div>
+                <div>
+                    {@html starCounter(skill.memory)}
+                </div>
+            </div>
+        {/each}
+        <!-- <div class="skillName">
             {#each currentSkills as skill}
                 <div>
                     {skill.name}
                 </div>
+                {#if skill.subSkills}
+                    {#each skill.subSkills as subSkill}
+                        <div>{subSkill}</div>
+                    {/each}
+                {/if}
             {/each}
         </div>
         <div class="skillMemory">
@@ -74,6 +100,6 @@
                     {@html starCounter(skill.memory)}
                 </div>
             {/each}
-        </div>
+        </div> -->
     </div>
 </div>
