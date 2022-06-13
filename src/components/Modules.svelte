@@ -44,34 +44,26 @@
                 {
                     name: "CSS",
                     memory: 256,
-                    subSkills: [
-                        "SASS",
-                        "Tailwind"
-                    ]
                 },
                 {
                     name: "JavaScript",
                     memory: 256,
-                    subSkills: [
-                        "React",
-                        "Svelte",
-                        "Vue",
-                        "Nodejs",
-                        "Socket IO",
-                        "Express",
-                        "Redux",
-                    ]
-                },
-                {
-                    name: "Databases",
-                    memory: 192,
-                    subSkills: [
-                        "Mongodb",
-                        "MySQL",
-                        "SQL Server"
-                    ]
                 },
             ],
+            subSkills: [
+                "React",
+                "Svelte",
+                "Vue",
+                "Nodejs",
+                "Socket IO",
+                "Express",
+                "Redux",
+                "SASS",
+                "Tailwind",
+                "Mongodb",
+                "MySQL",
+                "SQL Server",
+            ]
         },
     ]
     export let openFile;

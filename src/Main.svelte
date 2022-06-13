@@ -12,7 +12,7 @@
 
     let logoFinished = true;
     //This needs to be remade more efficiently.
-    let pageDisplay = "modules";
+    let pageDisplay = "specs";
     let openFile = "";
     let fileDesc = "";
     let openDir = "";
@@ -35,10 +35,10 @@
             {program: "work", directory: undefined, file: "3", altFile: undefined},
             {program: "work", directory: undefined, file: "4", altFile: undefined},
             {program: "edu", directory: undefined, file: undefined, altFile: undefined},
-            {program: "portf", directory: "personal", file: "game_of_life", altFile: undefined, desc: "Implementation of the classic cellular automation first devised by John Horton Conway. Made in React.", url: "https://p-sjunnestrand.github.io/game-of-life/"},
-            {program: "portf", directory: "personal", file: "gridpainter", altFile: undefined, desc: "An online co-op multiplayer game using socket.io. Work with three friends to paint a picture before the time is up. Made in vanilla JS.", url: "https://fed20d-grupp8-gridpainter.herokuapp.com/"},
-            {program: "portf", directory: "personal", file: "trials_of_norns", altFile: undefined, desc: "A puzzle game made in vanilla JS. Test your wits and think outside the box.", url: "https://p-sjunnestrand.github.io/trials-of-norns/"},
-            {program: "portf", directory: "clients", file: "forca_fighting", altFile: undefined, desc: "Website for a martial arts club in Stockholm. Made in React", url: "https://forcafighting.com/"},
+            {program: "portf", directory: "personal", file: "game_of_life", altFile: "game_of_life.sys", desc: "Implementation of the classic cellular automation first devised by John Horton Conway. Made in React.", url: "https://p-sjunnestrand.github.io/game-of-life/"},
+            {program: "portf", directory: "personal", file: "gridpainter", altFile: "gridpainter.sys", desc: "An online co-op multiplayer game using socket.io. Work with three friends to paint a picture before the time is up. Made in vanilla JS.", url: "https://fed20d-grupp8-gridpainter.herokuapp.com/"},
+            {program: "portf", directory: "personal", file: "trials_of_norns", altFile: "trials_of_norns.sys", desc: "A puzzle game made in vanilla JS. Test your wits and think outside the box.", url: "https://p-sjunnestrand.github.io/trials-of-norns/"},
+            {program: "portf", directory: "clients", file: "forca_fighting", altFile: "forca_fighting.sys", desc: "Website for a martial arts club in Stockholm. Made in React", url: "https://forcafighting.com/"},
             {program: "specs", directory: undefined, file: undefined, altFile: undefined},
             {program: "console", directory: undefined, file: undefined, altFile: undefined},
         ];
@@ -116,6 +116,7 @@
             else {
                 displayConsole = false;
                 pageDisplay = matchingCommand.program;
+                openDir = "";
                 openFile = matchingCommand.file;
                 console.log(openFile);
                 //This needs to be remade with the object array above.
@@ -180,7 +181,7 @@
             {:else if pageDisplay === "edu"}
                 <Education on:escPress={() => displayConsole = true} on:command={execCommand}/>
             {:else if pageDisplay === "portf"}
-                <Portfolio {openDir} {openFile} {fileDesc} {fileUrl} on:escPress={() => displayConsole = true} on:command={execCommand} on:closeDir={() => openDir = ""} on:closeFile={() => openFile = ""}/>
+                <Portfolio {openDir} {openFile} {fileDesc} {fileUrl} on:escPress={escPressed} on:command={execCommand} on:closeDir={() => openDir = ""} on:closeFile={() => openFile = ""}/>
             {:else if pageDisplay === "specs"}
                 <Specs on:escPress={() => displayConsole = true} on:command={execCommand}/>
             {/if}

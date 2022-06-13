@@ -43,12 +43,34 @@
     }
     .skillsWrapper{
         display: flex;
-        // justify-content: space-around;
+        justify-content: space-evenly;
+        flex-direction: column;
         background-color: $secondary-background;
         color: white;
     }
     .skill{
         display: flex;
+
+        div {
+            width: calc(100%/3);
+            // text-align: center;
+        }
+    }
+    ul{
+        list-style-type: "-";
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0;
+    }
+    li{
+        width: calc(100%/6);
+    }
+    .leftmost{
+        padding-left: 3px;
+        margin: 0;
+    }
+    .plugins {
+        margin-top: 1rem;
     }
 </style>
 
@@ -59,14 +81,9 @@
     <div class="skillsWrapper">
         {#each currentSkills as skill}
             <div class="skill">
-                <div>
+                <div class="leftmost">
                     {skill.name}
                 </div>
-                {#if skill.subSkills}
-                    {#each skill.subSkills as subSkill}
-                        <div>{subSkill}</div>
-                    {/each}
-                {/if}
                 <div>
                     {skill.memory}kB
                 </div>
@@ -75,31 +92,13 @@
                 </div>
             </div>
         {/each}
-        <!-- <div class="skillName">
-            {#each currentSkills as skill}
-                <div>
-                    {skill.name}
-                </div>
-                {#if skill.subSkills}
-                    {#each skill.subSkills as subSkill}
-                        <div>{subSkill}</div>
-                    {/each}
-                {/if}
+        {#if currentFile.subSkills}
+        <p class="leftmost plugins">Plug-ins</p>
+        <ul>
+            {#each currentFile.subSkills as skill}
+                <li>{skill}</li>
             {/each}
-        </div>
-        <div class="skillMemory">
-            {#each currentSkills as skill}
-                <div>
-                    {skill.memory}kB
-                </div>
-            {/each}
-        </div>
-        <div class="skillStars">
-            {#each currentSkills as skill}
-                <div>
-                    {@html starCounter(skill.memory)}
-                </div>
-            {/each}
-        </div> -->
+        </ul>
+        {/if}
     </div>
 </div>

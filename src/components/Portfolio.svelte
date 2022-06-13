@@ -39,8 +39,11 @@
         width: 10vw;
     }
 </style>
-
-<KeyPress on:escPress on:enterPress={() => displayInput = true}/>
+{#if !openFile}
+    <KeyPress on:escPress on:enterPress={() => displayInput = true}/>
+{:else}
+    <KeyPress on:escPress/>
+{/if}
 <article>
     <div class="header">
         <h1>PORTFOLIO</h1>
@@ -64,6 +67,8 @@
     {/if}
 </article>
 {#if !displayInput}
+    <Placeholder terminal={true}/>
+{:else if openFile}
     <Placeholder/>
 {:else}
     <Terminal on:command/>

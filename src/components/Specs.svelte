@@ -12,6 +12,7 @@
     let dotArray = Array(35).fill('.');
     const progressDots = ['.', ':'];
     let randomStringArray = [];
+    let mvoMatrix = Array(10).fill().map(() => Array(6).fill(0));
 
 
     const setValues = () => {
@@ -20,6 +21,7 @@
         crypto = Math.floor(Math.random() * 3 + 3);
         dotArray = runDotArray();
         randomStringArray = makeRandomString();
+        // runMatrix();
     }
 
     const interval = setInterval(setValues, 1000);
@@ -46,6 +48,14 @@
         newDotArray.push(progressDots[randomDot]);
         newDotArray.shift();
         return newDotArray
+    }
+
+    const runMatrix = () => {
+        for(let i = 0; i < mvoMatrix.length; i++) {
+            for(let j = 0; j < mvoMatrix[i].length; j++) {
+                mvoMatrix[i][j] = Math.floor(Math.random() * 2);
+            }
+        }
     }
 
     onDestroy(() => {
@@ -78,8 +88,8 @@
     }
     .randomStrings {
         border: solid 1px white;
-        width: 270px;
-        height: 145px;
+        width: 315px;
+        height: 203px;
         padding: 2px;
         text-align: center; 
 
@@ -99,12 +109,60 @@
     .visuals {
         display: flex;
         width: 100%;
-        justify-content: space-evenly;
+        // justify-content: space-evenly;
         flex-wrap: wrap;
-        div {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        // div {
+        //     display: flex;
+        //     flex-direction: column;
+        //     align-items: center;
+        // }
+    }
+    .first-column{
+        display: flex;
+        flex-direction: column;
+    }
+    .second-column {
+        display: flex;
+        align-items: flex-end;
+    }
+    .mvo-wrapper {
+        width: 200px;
+        min-height: 150px;
+        display: flex;
+        flex-wrap: wrap;
+        border: 1px solid white;
+        align-items: flex-end;
+    }
+    .bar {
+        background-color: white;
+        width: 40px;
+        height: 60px;
+        animation: grow 0.2s linear alternate infinite;
+        transform-origin: bottom;
+    }
+    .bar:nth-child(2) {
+        animation-delay: 150ms;
+        animation-duration: 400ms;
+    }
+    .bar:nth-child(3) {
+        animation-delay: 233ms;
+        animation-duration: 100ms;
+    }
+    .bar:nth-child(4) {
+        animation-delay: 304ms;
+        animation-duration: 250ms;
+    }
+    .bar:nth-child(5) {
+        animation-delay: 589ms;
+        animation-duration: 300ms;
+    }
+
+    @keyframes grow {
+        from {
+            transform: scale(1);
+        }
+        to {
+            transform: scale(1, 2);
         }
     }
 </style>
@@ -133,29 +191,46 @@
             </ul>
         </div>
         <div class="visuals">
-            <div>
-                <h2>Panametric nanoflux instabilities</h2>
-                <div class="dots">
-                    {#each dotArray as dot}
-                        {dot}
-                    {/each}
+            <div class="first-column">
+                <div>
+                    <h2>Panametric nanoflux instabilities</h2>
+                    <div class="dots">
+                        {#each dotArray as dot}
+                            {dot}
+                        {/each}
+                    </div>
+                </div>
+                <div>
+                    <h2>Bodkin spilwave parameters (within 20spn margin)</h2>
+                    <div class="randomStrings">
+                        <ul>
+                            {#each randomStringArray as randomString}
+                                <li>{randomString}</li>
+                            {/each}
+                        </ul>
+                    </div>
                 </div>
             </div>
-            <div>
-                <h2>Bodkin spilwave parameters (within 20spn margin)</h2>
-                <div class="randomStrings">
-                    <ul>
-                        {#each randomStringArray as randomString}
-                            <li>{randomString}</li>
-                        {/each}
-                    </ul>
+            <div class="second-column">
+                <div>
+                    <h2>Monophasic vectorized oscilation</h2>
+                    <div class="mvo-wrapper">
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                    </div>
                 </div>
+            </div>
+            <div class="third-column">
+                The Petter Sjunnestrand is a highly skilled automoton trained in human to human interaction.
             </div>
         </div>
     </section>
 </article>
 {#if !displayInput}
-    <Placeholder/>
+    <Placeholder terminal={true}/>
 {:else}
     <Terminal on:command/>
 {/if}
