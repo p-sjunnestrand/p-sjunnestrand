@@ -1,10 +1,8 @@
 <script>
-    import {createEventDispatcher, onMount} from "svelte";
     import Terminal from "./Terminal.svelte";
     import KeyPress from "./KeyPress.svelte";
     import Placeholder from "./components/Placeholder.svelte";
 
-    const dispatch = createEventDispatcher();
 
     let displayInput = false;
     
@@ -110,7 +108,7 @@
     </div>
 </article>
 {#if !displayInput}
-    <Placeholder/>
+    <Placeholder terminal={true}/>
 {:else}
     <Terminal on:command/>
 {/if}

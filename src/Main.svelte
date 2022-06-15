@@ -10,13 +10,19 @@
     import Console from "./components/Console.svelte";
     import {createEventDispatcher} from "svelte";
 
-    let logoFinished = true;
+    let logoFinished = false;
     //This needs to be remade more efficiently.
-    let pageDisplay = "specs";
+    let pageDisplay = "main";
     let openFile = "";
     let fileDesc = "";
     let openDir = "";
     let fileUrl = "";
+
+    export let debug;
+
+    if(debug) {
+        logoFinished = true;
+    }
 
     //Doesn't need to be exported?
     export let displayConsole = false;
@@ -138,6 +144,9 @@
                 pageDisplay = matchingCommand.program;
                 openDir = matchingCommand.directory;
             }
+        }
+        else if(command === "cd ..") {
+            openDir = "";
         }
         else if(command === "sys color") {
             const reg=/^#([0-9a-f]{3}){1,2}$/i;

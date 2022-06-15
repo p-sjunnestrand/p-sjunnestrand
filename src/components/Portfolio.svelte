@@ -47,9 +47,10 @@
 <article>
     <div class="header">
         <h1>PORTFOLIO</h1>
-        <p>Input <span class="code">> open -d [directory]</span> to open </p>
-        <p>Input <span class="code">> open -f [file]</span> to open </p>
-        <p>Input <span class="code">> help</span> for list of commands.</p>
+        <p>Input <span class="code">> open -d [directory]</span> to open directory</p>
+        <p>Input <span class="code">> open -f [file]</span> to open file</p>
+        <p>Input <span class="code">> cd ..</span> to close directory</p>
+        <p>Input <span class="code">> help</span> for list of commands</p>
     </div>
     {#if openDir}
         <Directory {openDir} on:closeDir/>

@@ -136,7 +136,8 @@
     {/if}  
 </article>
 {#if openFile}
-    <p>PRESS ESC TO CLOSE FILE</p>
+    <!-- <p>PRESS ESC TO CLOSE FILE</p> -->
+    <Placeholder/>
 {:else}
     {#if !displayInput}
         <Placeholder terminal={true}/>

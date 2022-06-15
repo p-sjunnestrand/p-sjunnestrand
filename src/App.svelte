@@ -5,15 +5,24 @@
 	import Main from "./Main.svelte";
 	import StartError from './components/StartError.svelte';
 
-	let loggedIn = true;
-	let power = true;
-	let firstLoad = false;
-	let loadingFinished = true;
+	let loggedIn = false;
+	let power = false;
+	let firstLoad = true;
+	let loadingFinished = false;
 	let access = undefined;
 	let noteVisible = true;
 	let noteOut = false;
 	let bgColor = "#6200ff";
+	let textColor = "#000000";
 	let isMobile = false;
+	export let debug = true;
+
+	if(debug) {
+		loggedIn = true;
+		power = true;
+		firstLoad = false;
+		loadingFinished = true;
+	}
 	
 	const handleSubmit = (e) => {
 		if(e.detail.user === "admin" && e.detail.psw === "psw123"){
@@ -93,7 +102,7 @@
 		background-color: rgb(95, 95, 84);
 	}
 		#screen{
-		overflow-y: scroll;
+		// overflow-y: scroll;
 		position: relative;
 		font-size: 1.2em;
 		width: $screen-width;
@@ -372,7 +381,7 @@
 		</div>
 	{/if}
 	<div id="bevel">
-		<div id="screen" class="{firstLoad? "firstLoad" : power ? "on" : "off"}" style="background-color: {power ? bgColor : null}">
+		<div id="screen" class="{firstLoad? "firstLoad" : power ? "on" : "off"}" style="background-color: {power ? bgColor : null}; font-color: {textColor}">
 			{#if power}
 				{#if !loadingFinished}
 					{#if !isMobile}
@@ -386,7 +395,7 @@
 					{:else if !loggedIn}
 						<LoginStatus {access}/>
 					{:else}
-						<Main on:logout={() => loggedIn = false} on:shutdown={shutdown} on:timer={shutDownTimer} on:bgcolor={e => bgColor = e.detail}/>
+						<Main on:logout={() => loggedIn = false} on:shutdown={shutdown} on:timer={shutDownTimer} on:bgcolor={e => bgColor = e.detail} {debug}/>
 					{/if}
 				{/if}
 			{/if}
