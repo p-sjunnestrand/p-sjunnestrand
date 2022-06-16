@@ -15,7 +15,7 @@
 	let bgColor = "#6200ff";
 	let textColor = "#ffffff";
 	let isMobile = false;
-	let debug = true;
+	let debug = false;
 
 	if(debug) {
 		loggedIn = true;
