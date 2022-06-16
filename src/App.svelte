@@ -13,9 +13,9 @@
 	let noteVisible = true;
 	let noteOut = false;
 	let bgColor = "#6200ff";
-	let textColor = "#000000";
+	let textColor = "#ffffff";
 	let isMobile = false;
-	export let debug = true;
+	let debug = true;
 
 	if(debug) {
 		loggedIn = true;
@@ -381,7 +381,7 @@
 		</div>
 	{/if}
 	<div id="bevel">
-		<div id="screen" class="{firstLoad? "firstLoad" : power ? "on" : "off"}" style="background-color: {power ? bgColor : null}; font-color: {textColor}">
+		<div id="screen" class="{firstLoad? "firstLoad" : power ? "on" : "off"}" style="background-color: {power ? bgColor : null}; color: {textColor}">
 			{#if power}
 				{#if !loadingFinished}
 					{#if !isMobile}
@@ -395,7 +395,7 @@
 					{:else if !loggedIn}
 						<LoginStatus {access}/>
 					{:else}
-						<Main on:logout={() => loggedIn = false} on:shutdown={shutdown} on:timer={shutDownTimer} on:bgcolor={e => bgColor = e.detail} {debug}/>
+						<Main on:logout={() => loggedIn = false} on:shutdown={shutdown} on:timer={shutDownTimer} on:bgcolor={e => bgColor = e.detail} on:text={e => textColor = e.detail} {debug}/>
 					{/if}
 				{/if}
 			{/if}

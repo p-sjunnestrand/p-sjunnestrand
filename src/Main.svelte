@@ -160,6 +160,18 @@
                 runCommandInConsole('Syntax error: argument must be valid hex code');
             }
         }
+        else if(command === "sys text") {
+            const reg=/^#([0-9a-f]{3}){1,2}$/i;
+            if(reg.test(argument)) {
+                dispatch('text', argument);
+            } else if(argument === "-r") {
+                const resetText = "#ffffff"
+                dispatch('text', resetText);
+            }
+            else {
+                runCommandInConsole('Syntax error: argument must be valid hex code');
+            }
+        }
         else {
             runCommandInConsole("Invalid command")
         }

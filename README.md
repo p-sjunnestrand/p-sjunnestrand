@@ -1,109 +1,20 @@
-*Psst — looking for a more complete solution? Check out [SvelteKit](kit.svelte.dev), the official framework for building web applications of all sizes, with a beautiful development experience and flexible filesystem-based routing.*
+# Autonomous Pseudo-Voltonic Lewitt-Hoffenfeld Manifold 86-q4
+# aka the Petter Sjunnestrand
 
-*Looking for a shareable component template instead? Go here --> [sveltejs/component-template](https://github.com/sveltejs/component-template)*
+What follows is a general introduction and overview of the Petter Sjunnestrand, focusing on the technical aspects of the automaton.
+For trouble shooting and/or further information on technical as well as practical aspects, please contact p.sjunnestrand@gmail.com.
 
----
+## General overview
 
-# svelte app
+The Petter Sjunnestrand is the latest installment of the Ashatt Assabi Industries' Autonomous Pseudo-Voltonic Lewitt-Hoffenfeld Manifold. It comes with considerable improvements of numerous parameters and is expected to vastly ourperform its predecessors.
+When designing the newest version of the automaton, the engineers at Ashatt Assabi Industries Inc. focused on the most salient aspects
+of the machine's functionality, i.e. its performance in humanoid interaction and its adaptability to its programmed tasks.
+In order to achieve this, the engineers at Ashatt Assabi Industries Inc. had to improve a range of hardware modules while still keeping with the limitations of dimensions of the main frame. Through hard work and ingenious solutions, our engineers were able to produce the most advanced automaton as of yet. A, by no means complete, list of changes follows:
 
-This is a project template for [Svelte](https://svelte.dev) apps. It lives at https://github.com/sveltejs/template.
-
-To create a new project based on this template using [degit](https://github.com/Rich-Harris/degit):
-
-```bash
-npx degit sveltejs/template svelte-app
-cd svelte-app
-```
-
-*Note that you will need to have [Node.js](https://nodejs.org) installed.*
-
-
-## Get started
-
-Install the dependencies...
-
-```bash
-cd svelte-app
-npm install
-```
-
-...then start [Rollup](https://rollupjs.org):
-
-```bash
-npm run dev
-```
-
-Navigate to [localhost:5000](http://localhost:5000). You should see your app running. Edit a component file in `src`, save it, and reload the page to see your changes.
-
-By default, the server will only respond to requests from localhost. To allow connections from other computers, edit the `sirv` commands in package.json to include the option `--host 0.0.0.0`.
-
-If you're using [Visual Studio Code](https://code.visualstudio.com/) we recommend installing the official extension [Svelte for VS Code](https://marketplace.visualstudio.com/items?itemName=svelte.svelte-vscode). If you are using other editors you may need to install a plugin in order to get syntax highlighting and intellisense.
-
-## Building and running in production mode
-
-To create an optimised version of the app:
-
-```bash
-npm run build
-```
-
-You can run the newly built app with `npm run start`. This uses [sirv](https://github.com/lukeed/sirv), which is included in your package.json's `dependencies` so that the app will work when you deploy to platforms like [Heroku](https://heroku.com).
-
-
-## Single-page app mode
-
-By default, sirv will only respond to requests that match files in `public`. This is to maximise compatibility with static fileservers, allowing you to deploy your app anywhere.
-
-If you're building a single-page app (SPA) with multiple routes, sirv needs to be able to respond to requests for *any* path. You can make it so by editing the `"start"` command in package.json:
-
-```js
-"start": "sirv public --single"
-```
-
-## Using TypeScript
-
-This template comes with a script to set up a TypeScript development environment, you can run it immediately after cloning the template with:
-
-```bash
-node scripts/setupTypeScript.js
-```
-
-Or remove the script via:
-
-```bash
-rm scripts/setupTypeScript.js
-```
-
-If you want to use `baseUrl` or `path` aliases within your `tsconfig`, you need to set up `@rollup/plugin-alias` to tell Rollup to resolve the aliases. For more info, see [this StackOverflow question](https://stackoverflow.com/questions/63427935/setup-tsconfig-path-in-svelte).
-
-## Deploying to the web
-
-### With [Vercel](https://vercel.com)
-
-Install `vercel` if you haven't already:
-
-```bash
-npm install -g vercel
-```
-
-Then, from within your project folder:
-
-```bash
-cd public
-vercel deploy --name my-project
-```
-
-### With [surge](https://surge.sh/)
-
-Install `surge` if you haven't already:
-
-```bash
-npm install -g surge
-```
-
-Then, from within your project folder:
-
-```bash
-npm run build
-surge public my-project.surge.sh
-```
+- Improved alpha flux in the berrinium stabilizers.
+- Reduced severity of Dreksen outbursts through serialization of the gaustic valves.
+- Inner chambers of wave redistributors fitted with Brenzwell alloy to reduce monotone drag.
+- Multivectored flux inhibitors scaled down and fitted with rhodium arrestors to increase reliance of polyphasic oscilation. This was reported as a major source of frustration in older versions. The new TRI-VX arrestors will greatly enhance field splicing. No more rouge Reimann peta spikes!
+- Added snooze button.
+- New 3000 core sinusodial overdrive will greatly improve neutroplasmic recirculation. R-undulation values of at least 40,000 KfL/w to be expected.
+- J-/J+ decoherence increased by a factor of seven(!).
