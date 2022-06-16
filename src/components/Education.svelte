@@ -96,7 +96,7 @@
 </article>
 
 {#if !displayInput}
-    <Placeholder/>
+    <Placeholder terminal={true}/>
 {:else}
     <Terminal on:command/>
 {/if}

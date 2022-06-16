@@ -10,13 +10,19 @@
     import Console from "./components/Console.svelte";
     import {createEventDispatcher} from "svelte";
 
-    let logoFinished = true;
+    let logoFinished = false;
     //This needs to be remade more efficiently.
     let pageDisplay = "main";
     let openFile = "";
     let fileDesc = "";
     let openDir = "";
     let fileUrl = "";
+
+    export let debug;
+
+    if(debug) {
+        logoFinished = true;
+    }
 
     //Doesn't need to be exported?
     export let displayConsole = false;
@@ -26,21 +32,21 @@
     const dispatch = createEventDispatcher();
     
     const commandArray = [
-            {program: "main", directory: undefined, file: undefined},
-            {program: "modules", directory: undefined, file: "langtech"},
-            {program: "modules", directory: undefined, file: "webproc"},
-            {program: "work", directory: undefined, file: "0"},
-            {program: "work", directory: undefined, file: "1"},
-            {program: "work", directory: undefined, file: "2"},
-            {program: "work", directory: undefined, file: "3"},
-            {program: "work", directory: undefined, file: "4"},
-            {program: "edu", directory: undefined, file: undefined},
-            {program: "portf", directory: "personal", file: "game_of_life", desc: "Implementation of the classic cellular automation first devised by John Horton Conway. Made in React.", url: "https://p-sjunnestrand.github.io/game-of-life/"},
-            {program: "portf", directory: "personal", file: "gridpainter", desc: "An online co-op multiplayer game using socket.io. Work with three friends to paint a picture before the time is up. Made in vanilla JS.", url: "https://fed20d-grupp8-gridpainter.herokuapp.com/"},
-            {program: "portf", directory: "personal", file: "trials_of_norns", desc: "A puzzle game made in vanilla JS. Test your wits and think outside the box.", url: "https://p-sjunnestrand.github.io/trials-of-norns/"},
-            {program: "portf", directory: "clients", file: "forca_fighting", desc: "Website for a martial arts club in Stockholm. Made in React", url: "https://forcafighting.com/"},
-            {program: "specs", directory: undefined, file: undefined},
-            {program: "console", directory: undefined, file: undefined},
+            {program: "main", directory: undefined, file: undefined, altFile: undefined},
+            {program: "modules", directory: undefined, file: "langtech", altFile: "langtech.sys"},
+            {program: "modules", directory: undefined, file: "webproc", altFile: "webproc.sys"},
+            {program: "work", directory: undefined, file: "0", altFile: undefined},
+            {program: "work", directory: undefined, file: "1", altFile: undefined},
+            {program: "work", directory: undefined, file: "2", altFile: undefined},
+            {program: "work", directory: undefined, file: "3", altFile: undefined},
+            {program: "work", directory: undefined, file: "4", altFile: undefined},
+            {program: "edu", directory: undefined, file: undefined, altFile: undefined},
+            {program: "portf", directory: "personal", file: "game_of_life", altFile: "game_of_life.sys", desc: "Implementation of the classic cellular automation first devised by John Horton Conway. Made in React.", url: "https://p-sjunnestrand.github.io/game-of-life/"},
+            {program: "portf", directory: "personal", file: "gridpainter", altFile: "gridpainter.sys", desc: "An online co-op multiplayer game using socket.io. Work with three friends to paint a picture before the time is up. Made in vanilla JS.", url: "https://fed20d-grupp8-gridpainter.herokuapp.com/"},
+            {program: "portf", directory: "personal", file: "trials_of_norns", altFile: "trials_of_norns.sys", desc: "A puzzle game made in vanilla JS. Test your wits and think outside the box.", url: "https://p-sjunnestrand.github.io/trials-of-norns/"},
+            {program: "portf", directory: "clients", file: "forca_fighting", altFile: "forca_fighting.sys", desc: "Website for a martial arts club in Stockholm. Made in React", url: "https://forcafighting.com/"},
+            {program: "specs", directory: undefined, file: undefined, altFile: undefined},
+            {program: "console", directory: undefined, file: undefined, altFile: undefined},
         ];
 
     const runCommandInConsole = (message) => {
@@ -108,7 +114,7 @@
             }
         }
         else if(command === "open -f"){
-            matchingCommand = commandArray.find(command => command.file === argument);
+            matchingCommand = commandArray.find(command => command.file === argument || command.altFile === argument);
         
             if(matchingCommand === undefined){
                 runCommandInConsole(`${argument} is not a file`);
@@ -116,6 +122,7 @@
             else {
                 displayConsole = false;
                 pageDisplay = matchingCommand.program;
+                openDir = "";
                 openFile = matchingCommand.file;
                 console.log(openFile);
                 //This needs to be remade with the object array above.
@@ -138,6 +145,9 @@
                 openDir = matchingCommand.directory;
             }
         }
+        else if(command === "cd ..") {
+            openDir = "";
+        }
         else if(command === "sys color") {
             const reg=/^#([0-9a-f]{3}){1,2}$/i;
             if(reg.test(argument)) {
@@ -145,6 +155,18 @@
             } else if(argument === "-r") {
                 const resetColor = "#6200ff"
                 dispatch('bgcolor', resetColor);
+            }
+            else {
+                runCommandInConsole('Syntax error: argument must be valid hex code');
+            }
+        }
+        else if(command === "sys text") {
+            const reg=/^#([0-9a-f]{3}){1,2}$/i;
+            if(reg.test(argument)) {
+                dispatch('text', argument);
+            } else if(argument === "-r") {
+                const resetText = "#ffffff"
+                dispatch('text', resetText);
             }
             else {
                 runCommandInConsole('Syntax error: argument must be valid hex code');
@@ -180,7 +202,7 @@
             {:else if pageDisplay === "edu"}
                 <Education on:escPress={() => displayConsole = true} on:command={execCommand}/>
             {:else if pageDisplay === "portf"}
-                <Portfolio {openDir} {openFile} {fileDesc} {fileUrl} on:escPress={() => displayConsole = true} on:command={execCommand} on:closeDir={() => openDir = ""} on:closeFile={() => openFile = ""}/>
+                <Portfolio {openDir} {openFile} {fileDesc} {fileUrl} on:escPress={escPressed} on:command={execCommand} on:closeDir={() => openDir = ""} on:closeFile={() => openFile = ""}/>
             {:else if pageDisplay === "specs"}
                 <Specs on:escPress={() => displayConsole = true} on:command={execCommand}/>
             {/if}

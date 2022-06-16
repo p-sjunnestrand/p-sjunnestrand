@@ -12,7 +12,7 @@
             year: "2022 (present)",
             employer: "Nordic Morning",
             title: "Font end developer (internship)",
-            desc: "In charge of redesigning internal systems for ..."
+            desc: "In charge of redesigning internal systems for SEO marketing team. Includes database design and management, Google Ads API implementation, frontend and backend design."
         },
         {
             index: "1",
@@ -136,10 +136,11 @@
     {/if}  
 </article>
 {#if openFile}
-    <p>PRESS ESC TO CLOSE FILE</p>
+    <!-- <p>PRESS ESC TO CLOSE FILE</p> -->
+    <Placeholder/>
 {:else}
     {#if !displayInput}
-        <Placeholder/>
+        <Placeholder terminal={true}/>
     {:else}
         <Terminal on:command/>
     {/if}

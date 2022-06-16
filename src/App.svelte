@@ -2,7 +2,8 @@
 	import Login from "./Login.svelte";
 	import Loading from "./Loading.svelte";
 	import LoginStatus from "./LoginStatus.svelte"
-	import Main from "./Main.svelte"
+	import Main from "./Main.svelte";
+	import StartError from './components/StartError.svelte';
 
 	let loggedIn = false;
 	let power = false;
@@ -12,6 +13,16 @@
 	let noteVisible = true;
 	let noteOut = false;
 	let bgColor = "#6200ff";
+	let textColor = "#ffffff";
+	let isMobile = false;
+	let debug = true;
+
+	if(debug) {
+		loggedIn = true;
+		power = true;
+		firstLoad = false;
+		loadingFinished = true;
+	}
 	
 	const handleSubmit = (e) => {
 		if(e.detail.user === "admin" && e.detail.psw === "psw123"){
@@ -46,7 +57,10 @@
 		setTimeout(() => {
 			noteVisible = false;
 		}, 1900);
-
+	}
+	const shutDownOnBootError = () => {
+		shutdown();
+		isMobile = false;
 	}
 </script>
 
@@ -88,9 +102,9 @@
 		background-color: rgb(95, 95, 84);
 	}
 		#screen{
-		overflow-y: scroll;
+		// overflow-y: scroll;
 		position: relative;
-		// font-size: 1.5em;
+		font-size: 1.2em;
 		width: $screen-width;
 		height: $screen-height;
 		left: calc((100% - $screen-width)/2);
@@ -110,6 +124,7 @@
 	#knob-plate{
 		height: calc($bevel-height * 0.08);
 		width: calc($bevel-width * 0.2);
+		min-width: 75px;
 		border: 1px solid black;
 		position: relative;
 		left: calc((100% - $bevel-width * 0.9)/2);
@@ -121,6 +136,7 @@
 	}
 	.button{
 		width: 35%;
+		min-width: 48px;
 		height: 90%;
 		box-shadow: rgba(0,0,0,0.4) 1px 1px 5px;
 		background-color: rgb(95, 95, 84);
@@ -230,6 +246,7 @@
 	#led-plate{
 		height: calc($bevel-height * 0.08);
 		width: calc($bevel-width * 0.2);
+		min-width: 75px;
 		border: 1px solid black;
 		position: relative;
 		left: calc((100% - $bevel-width * 0.3));
@@ -241,6 +258,7 @@
 	}
 	.blinking-light{
 		width: 3%;
+		min-width: 5px;
 		aspect-ratio: 1/1;
 		background: rgb(31, 31, 31);
 		border-radius: 50%;
@@ -314,9 +332,10 @@
 	.note{
 		position: absolute;
 		width: 10%;
+		min-width: 95px;
 		aspect-ratio: 1/1;
 		background-color: hsl(60, 100%, 50%);
-		left: 87%;
+		right: 2%;
     	top: 2%;
     	z-index: 10;
 		color: black;
@@ -362,17 +381,21 @@
 		</div>
 	{/if}
 	<div id="bevel">
-		<div id="screen" class="{firstLoad? "firstLoad" : power ? "on" : "off"}" style="background-color: {power ? bgColor : null}">
+		<div id="screen" class="{firstLoad? "firstLoad" : power ? "on" : "off"}" style="background-color: {power ? bgColor : null}; color: {textColor}">
 			{#if power}
 				{#if !loadingFinished}
-					<Loading on:finishLoad={() => loadingFinished = true}/>
+					{#if !isMobile}
+						<Loading on:finishLoad={() => loadingFinished = true} on:mobileDetected={() => isMobile = true}/>
+					{:else}
+						<StartError on:errorShutDown={shutDownOnBootError}/>
+					{/if}
 				{:else}
 					{#if !loggedIn && !access}
 						<Login on:submit={handleSubmit}/>
 					{:else if !loggedIn}
 						<LoginStatus {access}/>
 					{:else}
-						<Main on:logout={() => loggedIn = false} on:shutdown={shutdown} on:timer={shutDownTimer} on:bgcolor={e => bgColor = e.detail}/>
+						<Main on:logout={() => loggedIn = false} on:shutdown={shutdown} on:timer={shutDownTimer} on:bgcolor={e => bgColor = e.detail} on:text={e => textColor = e.detail} {debug}/>
 					{/if}
 				{/if}
 			{/if}

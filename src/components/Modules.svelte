@@ -27,6 +27,10 @@
                     name: "Sorani",
                     memory: 128,
                 },
+                {
+                    name: "Hebrew",
+                    memory: 64,
+                },
             ]
         },
         {
@@ -43,8 +47,22 @@
                 },
                 {
                     name: "JavaScript",
-                    memory: 192,
+                    memory: 256,
                 },
+            ],
+            subSkills: [
+                "React",
+                "Svelte",
+                "Vue",
+                "Nodejs",
+                "Socket IO",
+                "Express",
+                "Redux",
+                "SASS",
+                "Tailwind",
+                "Mongodb",
+                "MySQL",
+                "SQL Server",
             ]
         },
     ]
@@ -56,6 +74,9 @@
         height: 92%;
         overflow: auto;
         position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
     #modulesWrapper{
         display: flex;
@@ -65,14 +86,7 @@
         /* height: 30%; */
         flex-wrap: wrap;
     }
-    /* .code{
-        background-color: white;
-        color: rgb(98, 0, 255);
-    }
-    .header{
-        border-bottom: 4px double;
-        width: 100%;
-    } */
+    
     h2{
         text-align: center;
     }
@@ -120,10 +134,10 @@
     
 </article>
 {#if openFile}
-    <p>PRESS ESC TO CLOSE FILE</p>
+    <Placeholder terminal={false}/>
 {:else}
     {#if !displayInput}
-        <Placeholder/>
+        <Placeholder terminal={true}/>
     {:else}
         <Terminal on:command/>
     {/if}

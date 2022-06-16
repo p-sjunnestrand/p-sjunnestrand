@@ -1,7 +1,9 @@
 <script>
     import LoadingDots from "./loadingDots.svelte";
-
+    import StartError from './components/StartError.svelte';
+    import {createEventDispatcher} from 'svelte';
     
+    const dispatch = createEventDispatcher();
 
     let status = {
         first: false,
@@ -11,7 +13,7 @@
         fifth: false,
     }
 
-    function typewriter(node, { speed = 3 }) {
+    function typewriter(node, { speed = 5 }) {
         const valid = (
             node.childNodes.length === 1 &&
             node.childNodes[0].nodeType === Node.TEXT_NODE
@@ -21,7 +23,7 @@
             throw new Error(`This transition only works on elements with a single text node child`);
         }
 
-        const delay = 1500;
+        const delay = 1000;
         const text = node.textContent;
         const duration = text.length / (speed * 0.01);
 
@@ -35,7 +37,17 @@
         };
     }
 
-    
+    function detectMob() {
+        return ( ( window.innerWidth <= 800 ));
+    }
+
+    function runTimer () {
+        console.log("hej!");
+        setTimeout(() => {
+            // status.seventh = true;
+            dispatch('mobileDetected');
+        }, 1000);
+    }
 </script>
 
 <style>
@@ -46,7 +58,9 @@
     }
     p{
         margin-top: 4em;
-        
+    }
+    .warning {
+        color: red;
     }
 </style>
 
@@ -62,11 +76,18 @@
         {#if status.fourth}
             <li in:typewriter on:introend="{() => status.fifth = true}">decoupling phase shift rotodrive...</li>
         {/if}
-        {#if status.fifth}
+    </ul>
+    {#if status.fifth}
+        {#if detectMob()}
+            <p in:typewriter class="warning" on:introend={runTimer}>EXCEPTION TYPE 4 DETECTED. ABORTING START UP</p>
+        {:else}
             <p in:typewriter on:introend="{() => status.sixth = true}">ALL SYSTEMS NOMINAL. ENGAGING ROTOLIMBIC CHAMBER.</p>
         {/if}
-        {#if status.sixth}
-            <LoadingDots on:finishLoad/>
-        {/if}
-    </ul>
+    {/if}
+    {#if status.sixth}
+        <LoadingDots on:finishLoad/>
+    {/if}
+    {#if status.seventh}
+        <StartError/>
+    {/if}
 </section>

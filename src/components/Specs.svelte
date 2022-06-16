@@ -12,6 +12,7 @@
     let dotArray = Array(35).fill('.');
     const progressDots = ['.', ':'];
     let randomStringArray = [];
+    let mvoMatrix = Array(10).fill().map(() => Array(6).fill(0));
 
 
     const setValues = () => {
@@ -20,6 +21,7 @@
         crypto = Math.floor(Math.random() * 3 + 3);
         dotArray = runDotArray();
         randomStringArray = makeRandomString();
+        // runMatrix();
     }
 
     const interval = setInterval(setValues, 1000);
@@ -46,6 +48,14 @@
         newDotArray.push(progressDots[randomDot]);
         newDotArray.shift();
         return newDotArray
+    }
+
+    const runMatrix = () => {
+        for(let i = 0; i < mvoMatrix.length; i++) {
+            for(let j = 0; j < mvoMatrix[i].length; j++) {
+                mvoMatrix[i][j] = Math.floor(Math.random() * 2);
+            }
+        }
     }
 
     onDestroy(() => {
@@ -78,8 +88,8 @@
     }
     .randomStrings {
         border: solid 1px white;
-        width: 270px;
-        height: 145px;
+        width: 315px;
+        height: 203px;
         padding: 2px;
         text-align: center; 
 
@@ -99,18 +109,106 @@
     .visuals {
         display: flex;
         width: 100%;
-        justify-content: space-evenly;
-        flex-wrap: wrap;
-        div {
-            display: flex;
+        gap: 1em;
+        // justify-content: space-evenly;
+        // flex-wrap: wrap;
+        // div {
+        //     display: flex;
+        //     flex-direction: column;
+        //     align-items: center;
+        // }
+    }
+    .first-column{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: 65px auto;
+        grid-template-areas: 
+        "l-top ."
+        "l-bottom r-bottom";
+        min-width: 545px;
+        width: 40%;
+        height: 337px;
+        column-gap: 1em;
+        // flex-direction: column;
+    }
+    .second-column {
+        width: 60%;
+    }
+    .mvo-wrapper {
+        width: 200px;
+        min-height: 150px;
+        display: flex;
+        // flex-wrap: wrap;
+        border: 1px solid white;
+        align-items: flex-end;
+    }
+    .bar {
+        background-color: white;
+        width: 40px;
+        height: 60px;
+        animation: grow 0.2s linear alternate infinite;
+        transform-origin: bottom;
+    }
+    .bar:nth-child(2) {
+        animation-delay: 150ms;
+        animation-duration: 400ms;
+    }
+    .bar:nth-child(3) {
+        animation-delay: 233ms;
+        animation-duration: 100ms;
+    }
+    .bar:nth-child(4) {
+        animation-delay: 304ms;
+        animation-duration: 250ms;
+    }
+    .bar:nth-child(5) {
+        animation-delay: 589ms;
+        animation-duration: 300ms;
+    }
+
+    @keyframes grow {
+        from {
+            transform: scale(1);
+        }
+        to {
+            transform: scale(1, 2);
+        }
+    }
+    .nanoflux {
+        grid-area: l-top;
+    }
+    .bodkin {
+        grid-area: l-bottom;
+        align-self: end;
+    }
+    .mvo {
+        grid-area: r-bottom;
+        align-self: end;
+    }
+    @media screen and (max-width: 1100px) {
+        .visuals {
             flex-direction: column;
-            align-items: center;
+        }
+        .first-column {
+            width: 100%
+        }
+        .second-column {
+            width: 100%;
+        }
+        .nanoflux {
+            justify-self: end;
+        }
+        .bodkin {
+            justify-self: end;
+        }
+        .mvo {
+            justify-self: center;
         }
     }
 </style>
 
 <KeyPress on:escPress on:enterPress={() => displayInput = true}/>
-<article>
+<article class="specs-main">
     <div class="header">
         <h1>Specs</h1>
         <p>Input <span class="code">> help</span> for list of commands.</p>
@@ -133,29 +231,49 @@
             </ul>
         </div>
         <div class="visuals">
-            <div>
-                <h2>Panametric nanoflux instabilities</h2>
-                <div class="dots">
-                    {#each dotArray as dot}
-                        {dot}
-                    {/each}
+            <div class="first-column">
+                <div class="nanoflux">
+                    <h2>Panametric nanoflux instabilities</h2>
+                    <div class="dots">
+                        {#each dotArray as dot}
+                            {dot}
+                        {/each}
+                    </div>
+                </div>
+                <div class="bodkin">
+                    <h2>Bodkin spilwave parameters ( 20spn margin)</h2>
+                    <div class="randomStrings">
+                        <ul>
+                            {#each randomStringArray as randomString}
+                                <li>{randomString}</li>
+                            {/each}
+                        </ul>
+                    </div>
+                </div>
+                <div class="mvo">
+                    <h2>Monophasic vectorized oscilation</h2>
+                    <div class="mvo-wrapper">
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                    </div>
                 </div>
             </div>
-            <div>
-                <h2>Bodkin spilwave parameters (within 20spn margin)</h2>
-                <div class="randomStrings">
-                    <ul>
-                        {#each randomStringArray as randomString}
-                            <li>{randomString}</li>
-                        {/each}
-                    </ul>
-                </div>
+            <div class="second-column">
+                This version of the Petter Sjunnestrand (Autonomous Pseudo-Voltonic Lewitt-Hoffenfeld Manifold), operates through pan-muonic argegate fields, resulting in a greater GDSL-4 output compared to its precursors.
+                As per the Mononoki-Lundqvist effect, the more radical zeta zeta pattern generated by the argegate fields' cyclospin must be countered through stoechiometallic ionidization in the flux inhibitor cells.
+                Typical output should not exceed 400 p/y, not accounting for any hermetic vibrosion and imaginary voltage. In most cases, Moussorgski spin generated through encabulation of the magnastic heliosphere will negate any spike in epsilon modulated space, thus preventing a runaway voynichian reaction.
+                To maintain a good marigin of safety, the non-euclidian 3-brane fluids should be changed at least quarterly. If none is available, olive oil should work as well.
+                <br><br>
+                For information on maintenance or general questions regarding the Petter Sjunnestrand, please contact p.sjunnestrand@gmail.com.
             </div>
         </div>
     </section>
 </article>
 {#if !displayInput}
-    <Placeholder/>
+    <Placeholder terminal={true}/>
 {:else}
     <Terminal on:command/>
 {/if}

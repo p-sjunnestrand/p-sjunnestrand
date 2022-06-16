@@ -41,11 +41,36 @@
         padding: 2%;
         box-sizing: border-box;
     }
-    .skillWrapper{
+    .skillsWrapper{
         display: flex;
-        justify-content: space-around;
+        justify-content: space-evenly;
+        flex-direction: column;
         background-color: $secondary-background;
         color: white;
+    }
+    .skill{
+        display: flex;
+
+        div {
+            width: calc(100%/3);
+            // text-align: center;
+        }
+    }
+    ul{
+        list-style-type: "-";
+        display: flex;
+        flex-wrap: wrap;
+        margin: 0;
+    }
+    li{
+        width: calc(100%/6);
+    }
+    .leftmost{
+        padding-left: 3px;
+        margin: 0;
+    }
+    .plugins {
+        margin-top: 1rem;
     }
 </style>
 
@@ -53,27 +78,27 @@
 <div class="fileWindow">
     <h2>{fileName}</h2>
     <p>{currentFile.text}</p>
-    <div class="skillWrapper">
-        <div class="skillName">
-            {#each currentSkills as skill}
-                <div>
+    <div class="skillsWrapper">
+        {#each currentSkills as skill}
+            <div class="skill">
+                <div class="leftmost">
                     {skill.name}
                 </div>
-            {/each}
-        </div>
-        <div class="skillMemory">
-            {#each currentSkills as skill}
                 <div>
                     {skill.memory}kB
                 </div>
-            {/each}
-        </div>
-        <div class="skillStars">
-            {#each currentSkills as skill}
                 <div>
                     {@html starCounter(skill.memory)}
                 </div>
+            </div>
+        {/each}
+        {#if currentFile.subSkills}
+        <p class="leftmost plugins">Plug-ins</p>
+        <ul>
+            {#each currentFile.subSkills as skill}
+                <li>{skill}</li>
             {/each}
-        </div>
+        </ul>
+        {/if}
     </div>
 </div>

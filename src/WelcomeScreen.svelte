@@ -1,10 +1,8 @@
 <script>
-    import {createEventDispatcher, onMount} from "svelte";
     import Terminal from "./Terminal.svelte";
     import KeyPress from "./KeyPress.svelte";
     import Placeholder from "./components/Placeholder.svelte";
 
-    const dispatch = createEventDispatcher();
 
     let displayInput = false;
     
@@ -76,9 +74,9 @@
         <p id="firstParagraph">Ashat Assabi Industries Inc.</p>
         <p>Autonomous Pseudo-Voltonic Lewitt-Hoffenfeld Manifold, AKA the</p>
         <p style="white-space: pre" class="name"><span class="stupid-dot">.</span><!--If this stupid dot is not here the indentation on the first following line will not work. It's utterly stupid.-->
-   ___  _______________________    ____   ____  ___  ___  ___________________  ___   _  _____ 
-  / _ \/ __/_  __/_  __/ __/ _ \  / __/_ / / / / / |/ / |/ / __/ __/_  __/ _ \/ _ | / |/ / _ \
- / ___/ _/  / /   / / / _// , _/ _\ \/ // / /_/ /    /    / _/_\ \  / / / , _/ __ |/    / // /
+    ___  _______________________    ____   ____  ___  ___  ___________________  ___   _  _____ 
+   / _ \/ __/_  __/_  __/ __/ _ \  / __/_ / / / / / |/ / |/ / __/ __/_  __/ _ \/ _ | / |/ / _ \
+  / ___/ _/  / /   / / / _// , _/ _\ \/ // / /_/ /    /    / _/_\ \  / / / , _/ __ |/    / // /
 /_/  /___/ /_/   /_/ /___/_/|_| /___/\___/\____/_/|_/_/|_/___/___/ /_/ /_/|_/_/ |_/_/|_/____/
         </p>
         <br/>
@@ -110,7 +108,7 @@
     </div>
 </article>
 {#if !displayInput}
-    <Placeholder/>
+    <Placeholder terminal={true}/>
 {:else}
     <Terminal on:command/>
 {/if}
