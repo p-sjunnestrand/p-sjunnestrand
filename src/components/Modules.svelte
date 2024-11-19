@@ -35,7 +35,7 @@
         },
         {
             title: "webproc",
-            text: "The WebProc-0.6 (Beta) module enables skillful processing of web design tools including HTML, CSS & JavaScript. Note that the module is only in its Beta development stage and all features may not yet be 100% functional. The full release is expected in fall 2022. Allocated memory program below.",
+            text: "The WebProc-1.21.3 module enables skillful processing of web design tools including HTML, CSS & JavaScript. Version 1.0 was released in september 2022 after two years of development. Since then, numerous patches and minor releases have been made, that address bugs and add new features. Allocated memory program below.",
             skills: [
                 {
                     name: "HTML",
@@ -49,8 +49,20 @@
                     name: "JavaScript",
                     memory: 256,
                 },
+                {
+                    name: "PHP",
+                    memory: 128,
+                },
+                {
+                    name: "Java",
+                    memory: 64,
+                },
             ],
             subSkills: [
+                "AngularJS",
+                "Angular 2+",
+                "RxJS",
+                "WS",
                 "React",
                 "Svelte",
                 "Vue",
@@ -63,6 +75,7 @@
                 "Mongodb",
                 "MySQL",
                 "SQL Server",
+                "Laminas/Zend"
             ]
         },
     ]

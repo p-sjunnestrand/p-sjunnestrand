@@ -9,40 +9,39 @@
     export const workArray = [
         {
             index: "0",
-            year: "2022 (present)",
+            year: "2022 - (present)",
+            employer: "iquest ab",
+            title: "System developer",
+            desc: "Front end lead. Responsible for managing and optimizing the front end code base; push projects from design phase to launch; mentor interns. Development and bugfixing in PHP and Java included."
+        },
+        {
+            index: "1",
+            year: "2022",
             employer: "Nordic Morning",
             title: "Font end developer (internship)",
             desc: "In charge of redesigning internal systems for SEO marketing team. Includes database design and management, Google Ads API implementation, frontend and backend design."
         },
         {
-            index: "1",
+            index: "2",
             year: "2021",
             employer: "Uppsala University",
             title: "Course developer",
             desc: "Developed online material for two university courses in Arabic."
         },
         {
-            index: "2",
+            index: "3",
             year: "2020",
             employer: "Uppsala University",
             title: "Arabic teacher",
             desc: "Taught Arabic reading comprehension in a university course in Arabic."
         },
         {
-            index: "3",
+            index: "4",
             year: "2015-2016",
             employer: "Lernia AB",
             title: "Swedish teacher",
             desc: "Taught Swedish for immigrants."
         },
-        {
-            index: "4",
-            year: "2011-2015",
-            employer: "ICA",
-            title: "Clerk",
-            desc: "Worked in various positions, including cashier, charcuterie management, postal service management, and friut and vegetable management."
-        },
-        
     ];
 
     export let openFile;
@@ -123,9 +122,9 @@
                     <li class="label work-detail">EMPLOYER</li>
                     <li class="label work-title work-detail">TITLE</li>
                 </ul>
-                {#each workArray as work}
+                {#each workArray as work, index}
                     <ul class="work-card">
-                        <li class="work-index work-detail">{work.index}</li>
+                        <li class="work-index work-detail">{index}</li>
                         <li class="work-year work-detail">{work.year}</li>
                         <li class="work-employer work-detail">{work.employer}</li>
                         <li class="work-title work-detail">{work.title}</li>

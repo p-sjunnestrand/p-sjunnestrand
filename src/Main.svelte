@@ -19,7 +19,7 @@
     let fileUrl = "";
 
     export let debug;
-
+    
     if(debug) {
         logoFinished = true;
     }
